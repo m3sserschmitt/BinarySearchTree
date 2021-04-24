@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/rujas/code_workspace/proiect_SD/binary_tree.cc
+binary_tree.hh
+/home/rujas/code_workspace/proiect_SD/binary_tree.hh
+
+/home/rujas/code_workspace/proiect_SD/binary_tree.hh
+node.hh
+/home/rujas/code_workspace/proiect_SD/node.hh
+ostream
+-
+
+/home/rujas/code_workspace/proiect_SD/node.hh
+ostream
+-
+istream
+-
+

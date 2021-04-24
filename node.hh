@@ -16,6 +16,7 @@
 
 class Node 
 {
+protected:
     Node *p;  // parintele nodului;
     Node *left; // copilul stang;
     Node *right;  // copilul drept;
@@ -23,18 +24,31 @@ class Node
 
 public:
     Node();
-    Node(int key);
+    Node(int x);
     Node(const Node &node);
 
+    // returneaza nodul parinte;
     const Node *get_parent() const;
+
+    // returneaza copilul stang;
     const Node *get_left() const;
+
+    // returneaza copilul drept;
     const Node *get_right() const;
 
+    // seteaza parintele;
     void set_parent(const Node *node);
+
+    // seteaza copilul stang;
     void set_left(const Node *node);
+
+    // seteaza copilul drept;
     void set_right(const Node *node);
 
+    // returneaza cheia nodului;
     int get_key() const;
+
+    // seteaza cheia nodului;
     void set_key(int key);
 
     Node &operator=(const Node &node);

@@ -58,7 +58,7 @@ int Node::get_key() const
     return this->key;
 }
 
-void Node::set_key(int key)
+void Node::set_key(int x)
 {
     this->key = key;
 }
@@ -75,6 +75,7 @@ Node &Node::operator=(const Node &node)
 
     return *this;
 }
+
 
 Node &Node::operator=(int x)
 {

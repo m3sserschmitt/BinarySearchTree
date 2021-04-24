@@ -1,0 +1,22 @@
+[
+{
+  "directory": "/home/rujas/code_workspace/proiect_SD/build",
+  "command": "/usr/bin/x86_64-linux-gnu-g++-9   -g -o CMakeFiles/Proiect_SD.dir/main.cc.o -c /home/rujas/code_workspace/proiect_SD/main.cc",
+  "file": "/home/rujas/code_workspace/proiect_SD/main.cc"
+},
+{
+  "directory": "/home/rujas/code_workspace/proiect_SD/build",
+  "command": "/usr/bin/x86_64-linux-gnu-g++-9   -g -o CMakeFiles/Proiect_SD.dir/node.cc.o -c /home/rujas/code_workspace/proiect_SD/node.cc",
+  "file": "/home/rujas/code_workspace/proiect_SD/node.cc"
+},
+{
+  "directory": "/home/rujas/code_workspace/proiect_SD/build",
+  "command": "/usr/bin/x86_64-linux-gnu-g++-9   -g -o CMakeFiles/Proiect_SD.dir/rb_node.cc.o -c /home/rujas/code_workspace/proiect_SD/rb_node.cc",
+  "file": "/home/rujas/code_workspace/proiect_SD/rb_node.cc"
+},
+{
+  "directory": "/home/rujas/code_workspace/proiect_SD/build",
+  "command": "/usr/bin/x86_64-linux-gnu-g++-9   -g -o CMakeFiles/Proiect_SD.dir/binary_tree.cc.o -c /home/rujas/code_workspace/proiect_SD/binary_tree.cc",
+  "file": "/home/rujas/code_workspace/proiect_SD/binary_tree.cc"
+}
+]

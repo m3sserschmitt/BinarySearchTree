@@ -1,25 +1,24 @@
 #include "node.hh"
 
 #include <iostream>
+#include "binary_tree.hh"
+#include "rb_node.hh"
 
 using namespace std;
 
 int main()
 {
-    Node n = 5;
+    BinarySearchTree tree;
+    tree.insert(1);
+    tree.insert(2);
+    tree.insert(-10);
+    tree.insert(12);
+    tree.insert(22);
+    tree.insert(-12);
+    tree.insert(100);
 
-    Node m = n;
-
-    cout << n << "\n";
-    cout << m << "\n";
-
-    n = 6;
-
-    cout << n << "\n";
-
-    cin >> m;
-
-    cout << m << "\n";
+    cout << tree << "\n";
 
     return 0;
 }
+
