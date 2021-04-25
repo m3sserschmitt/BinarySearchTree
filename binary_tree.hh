@@ -24,15 +24,15 @@ class BinarySearchTree
 
 public:
     // metodele din cerinta;
-    
+
     // returneaza radacina arborelui;
     const Node *get_root() const;
     
     // insereaza o noua cheie in arbore;
-    void insert(int key);
+    virtual void insert(Node z);
 
     // sterge o cheie din arbore;
-    void remove(int key);
+    virtual void remove(Node z);
 
     // returneaza cheia minima a arborelui;
     int min() const;
@@ -41,10 +41,10 @@ public:
     int max() const;
     
     // returneaza succesorul;
-    int successor(int key) const;
+    int successor(Node x) const;
 
     // returneaza predecesorului;
-    int predecessor(int key) const;
+    int predecessor(Node x) const;
 
     // returneaza elementul cu indexul k in ordine crescatoare;
     int kth_element(int k) const;
@@ -53,7 +53,7 @@ public:
     int size() const;
 
     // returneaza true daca nodul x exista in arbore, altfel false;
-    bool exists(int key) const;
+    bool exists(Node x) const;
 
     friend std::ostream &operator<<(std::ostream &out, const BinarySearchTree &tree);
 };

@@ -16,6 +16,9 @@ int main()
     tree.insert(22);
     tree.insert(-12);
     tree.insert(100);
+    tree.insert(200);
+    tree.insert(-200);
+    tree.insert(30);
 
     cout << tree << "\n";
 

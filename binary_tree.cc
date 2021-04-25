@@ -22,7 +22,7 @@ std::ostream &BinarySearchTree::in_order_tree_print(std::ostream &out, const Nod
     return out;
 }
 
-void BinarySearchTree::insert(int key)
+void BinarySearchTree::insert(Node n)
 {
     // pointer la radacina arborelui;
     Node *x = this->root;
@@ -32,7 +32,7 @@ void BinarySearchTree::insert(int key)
 
     // noul nod care trebuie adaugat, cu cheia
     // corespunzatoare;
-    Node *z = new Node(key);
+    Node *z = new Node(n);
 
     while (x != nullptr)
     {
