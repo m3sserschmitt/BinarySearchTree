@@ -23,6 +23,8 @@ Node::Node(const Node &node)
     this->key = node.key;
 }
 
+Node::~Node() {}
+
 const Node *Node::get_parent() const
 {
     return this->p;
@@ -75,7 +77,6 @@ Node &Node::operator=(const Node &node)
 
     return *this;
 }
-
 
 Node &Node::operator=(int x)
 {

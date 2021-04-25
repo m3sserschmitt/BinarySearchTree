@@ -620,6 +620,33 @@ node.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Proiect_SD.dir/build.make CMakeFiles/Proiect_SD.dir/node.cc.s
 .PHONY : node.cc.s
 
+rb_binary_tree.o: rb_binary_tree.cc.o
+
+.PHONY : rb_binary_tree.o
+
+# target to build an object file
+rb_binary_tree.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Proiect_SD.dir/build.make CMakeFiles/Proiect_SD.dir/rb_binary_tree.cc.o
+.PHONY : rb_binary_tree.cc.o
+
+rb_binary_tree.i: rb_binary_tree.cc.i
+
+.PHONY : rb_binary_tree.i
+
+# target to preprocess a source file
+rb_binary_tree.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Proiect_SD.dir/build.make CMakeFiles/Proiect_SD.dir/rb_binary_tree.cc.i
+.PHONY : rb_binary_tree.cc.i
+
+rb_binary_tree.s: rb_binary_tree.cc.s
+
+.PHONY : rb_binary_tree.s
+
+# target to generate assembly for a file
+rb_binary_tree.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Proiect_SD.dir/build.make CMakeFiles/Proiect_SD.dir/rb_binary_tree.cc.s
+.PHONY : rb_binary_tree.cc.s
+
 rb_node.o: rb_node.cc.o
 
 .PHONY : rb_node.o
@@ -696,6 +723,9 @@ help:
 	@echo "... node.o"
 	@echo "... node.i"
 	@echo "... node.s"
+	@echo "... rb_binary_tree.o"
+	@echo "... rb_binary_tree.i"
+	@echo "... rb_binary_tree.s"
 	@echo "... rb_node.o"
 	@echo "... rb_node.i"
 	@echo "... rb_node.s"

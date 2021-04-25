@@ -8,10 +8,17 @@ CMakeFiles/Proiect_SD.dir/binary_tree.cc.o: ../node.hh
 CMakeFiles/Proiect_SD.dir/main.cc.o: ../binary_tree.hh
 CMakeFiles/Proiect_SD.dir/main.cc.o: ../main.cc
 CMakeFiles/Proiect_SD.dir/main.cc.o: ../node.hh
+CMakeFiles/Proiect_SD.dir/main.cc.o: ../rb_binary_tree.hh
 CMakeFiles/Proiect_SD.dir/main.cc.o: ../rb_node.hh
 
 CMakeFiles/Proiect_SD.dir/node.cc.o: ../node.cc
 CMakeFiles/Proiect_SD.dir/node.cc.o: ../node.hh
+
+CMakeFiles/Proiect_SD.dir/rb_binary_tree.cc.o: ../binary_tree.hh
+CMakeFiles/Proiect_SD.dir/rb_binary_tree.cc.o: ../node.hh
+CMakeFiles/Proiect_SD.dir/rb_binary_tree.cc.o: ../rb_binary_tree.cc
+CMakeFiles/Proiect_SD.dir/rb_binary_tree.cc.o: ../rb_binary_tree.hh
+CMakeFiles/Proiect_SD.dir/rb_binary_tree.cc.o: ../rb_node.hh
 
 CMakeFiles/Proiect_SD.dir/rb_node.cc.o: ../node.hh
 CMakeFiles/Proiect_SD.dir/rb_node.cc.o: ../rb_node.cc

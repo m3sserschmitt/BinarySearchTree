@@ -20,6 +20,11 @@ RedBlackNode::RedBlackNode(const RedBlackNode &node) : Node(node)
     this->color = node.color;
 }
 
+RedBlackNode::RedBlackNode(const Node &node): Node(node)
+{
+    this->color = RED;
+}
+
 NodeColor RedBlackNode::get_color() const
 {
     return this->color;

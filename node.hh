@@ -14,18 +14,19 @@
 #include <ostream>
 #include <istream>
 
-class Node 
+class Node
 {
 protected:
-    Node *p;  // parintele nodului;
-    Node *left; // copilul stang;
-    Node *right;  // copilul drept;
-    int key;  // cheia nodului;
+    Node *p;     // parintele nodului;
+    Node *left;  // copilul stang;
+    Node *right; // copilul drept;
+    int key;     // cheia nodului;
 
 public:
     Node();
     Node(int x);
     Node(const Node &node);
+    virtual ~Node();
 
     // returneaza nodul parinte;
     const Node *get_parent() const;

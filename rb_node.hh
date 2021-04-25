@@ -20,6 +20,7 @@ public:
     RedBlackNode(int x);
     RedBlackNode(int x, NodeColor color);
     RedBlackNode(const RedBlackNode &node);
+    RedBlackNode(const Node &node);
 
     // returneaza culoarea nodului;
     NodeColor get_color() const;

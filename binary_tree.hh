@@ -16,44 +16,52 @@
 
 class BinarySearchTree
 {
-    Node *root; // radacina arborelui;
-
     // printeaza nodurile arborelui in ordine crescatoare
     // pornind de la un anumit nod;
-    std::ostream &in_order_tree_print(std::ostream &out, const Node *node) const;
+    virtual std::ostream &in_order_tree_print(std::ostream &out, const Node *x) const;
+
+    void clear(const Node *x);
+protected:
+    Node *root; // radacina arborelui;
 
 public:
+    BinarySearchTree();
+    virtual ~BinarySearchTree();
+
     // metodele din cerinta;
 
     // returneaza radacina arborelui;
     const Node *get_root() const;
     
     // insereaza o noua cheie in arbore;
-    virtual void insert(Node z);
+    virtual void insert(Node x);
 
     // sterge o cheie din arbore;
-    virtual void remove(Node z);
+    virtual void remove(Node x);
 
     // returneaza cheia minima a arborelui;
-    int min() const;
+    Node min() const;
 
     // returneaza cheia maxima a arborelui;
-    int max() const;
+    Node max() const;
     
     // returneaza succesorul;
-    int successor(Node x) const;
+    Node successor(Node x) const;
 
     // returneaza predecesorului;
-    int predecessor(Node x) const;
+    Node predecessor(Node x) const;
 
     // returneaza elementul cu indexul k in ordine crescatoare;
-    int kth_element(int k) const;
+    Node kth_element(int k) const;
 
     // returneaza numarul de noduri din arbore;
     int size() const;
 
     // returneaza true daca nodul x exista in arbore, altfel false;
     bool exists(Node x) const;
+
+    // elibereaza memoria pentru toate nodurile arborelui;
+    void clear();
 
     friend std::ostream &operator<<(std::ostream &out, const BinarySearchTree &tree);
 };
