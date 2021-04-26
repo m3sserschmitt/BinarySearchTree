@@ -3,9 +3,9 @@
  * @brief Declaratia pentru binary search tree
  * @version 0.1
  * @date 2021-04-23
- * 
+ *
  * @copyright Copyright (c) 2021
- * 
+ *
  */
 
 #ifndef BINARY_TREE_HH
@@ -32,7 +32,7 @@ public:
 
     // returneaza radacina arborelui;
     const Node *get_root() const;
-    
+
     // insereaza o noua cheie in arbore;
     virtual void insert(Node x);
 
@@ -44,7 +44,7 @@ public:
 
     // returneaza cheia maxima a arborelui;
     Node max() const;
-    
+
     // returneaza succesorul;
     Node successor(Node x) const;
 

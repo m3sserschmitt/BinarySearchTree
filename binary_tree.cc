@@ -9,7 +9,7 @@ BinarySearchTree::BinarySearchTree()
     this->root = nullptr;
 }
 
-BinarySearchTree::~BinarySearchTree() 
+BinarySearchTree::~BinarySearchTree()
 {
     // this->clear(this->root);
 }
@@ -41,6 +41,30 @@ void BinarySearchTree::clear(const Node *x)
 
         delete x;
     }
+}
+
+Node BinarySearchTree::min() const
+{
+    if(this->root->get_key() == 0) return Node();
+
+    const Node *it = this->root;
+
+    while(it->get_left()->get_key())
+        it = it->get_left();
+
+    return Node(it->get_key());
+}
+
+Node BinarySearchTree::max() const
+{
+    if(this->root->get_key() == 0) return Node();
+
+    const Node *it = this->root;
+
+    while(it->get_right()->get_key())
+        it = it->get_right();
+
+    return Node(it->get_key());
 }
 
 void BinarySearchTree::insert(Node n)

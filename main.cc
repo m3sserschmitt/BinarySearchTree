@@ -51,6 +51,9 @@ int main()
 
     cout << tree << "\n";
 
+    cout << tree.min() << '\n';
+    cout << tree.max() << '\n';
+
     // RedBlackNode *y = new RedBlackNode(12, BLACK);
     // Node *x = y;
 
