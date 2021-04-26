@@ -67,6 +67,64 @@ Node BinarySearchTree::max() const
     return Node(it->get_key());
 }
 
+Node BinarySearchTree::successor(Node x) const
+{
+    if(this->root->get_key() == 0) return Node();
+
+    const Node *node = this->root;
+
+    while(node != nullptr and node->get_key() != x.get_key())
+        if(node->get_key() < x.get_key())
+            node = node->get_right();
+        else node = node->get_left();
+
+    if(node == nullptr) throw "Nu exista elementul cu cheia data";
+
+    if(node->get_right()->get_key() == 0) // nu are fiu drept
+    {
+        if(node->get_parent()->get_key() == 0) // nu are parinte
+            throw "Nu exista succesor";
+        return *node->get_parent();
+    }
+    else {
+        node = node->get_right();
+
+        while(node->get_left()->get_key()) // cat timp are fiu stang stang
+            node = node->get_left();
+
+        return *node;
+    }
+}
+
+Node BinarySearchTree::predecessor(Node x) const
+{
+    if(this->root->get_key() == 0) return Node();
+
+    const Node *node = this->root;
+
+    while(node != nullptr and node->get_key() != x.get_key())
+        if(node->get_key() < x.get_key())
+            node = node->get_right();
+        else node = node->get_left();
+
+    if(node == nullptr) throw "Nu exista elementul cu cheia data";
+
+    if(node->get_left()->get_key() == 0) // nu are fiu drept
+    {
+        if(node->get_parent()->get_key() == 0) // nu are parinte
+            throw "Nu exista succesor";
+        return *node->get_parent();
+    }
+    else {
+        node = node->get_left();
+
+        while(node->get_right()->get_key()) // cat timp are fiu stang stang
+            node = node->get_right();
+
+        return *node;
+    }
+}
+
 void BinarySearchTree::insert(Node n)
 {
     // pointer la radacina arborelui;
