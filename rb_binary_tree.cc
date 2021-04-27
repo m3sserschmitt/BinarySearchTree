@@ -8,18 +8,9 @@ RBBinarySearchTree::RBBinarySearchTree() : BinarySearchTree()
     this->root = this->nil;
 }
 
-RBBinarySearchTree::~RBBinarySearchTree() {}
-
-std::ostream &RBBinarySearchTree::in_order_tree_print(std::ostream &out, const Node *x) const
+RBBinarySearchTree::~RBBinarySearchTree() 
 {
-    if (x != this->nil)
-    {
-        this->in_order_tree_print(out, x->get_left());
-        out << *x << " ";
-        this->in_order_tree_print(out, x->get_right());
-    }
-
-    return out;
+    delete this->nil;
 }
 
 void RBBinarySearchTree::left_rotate(Node *x)

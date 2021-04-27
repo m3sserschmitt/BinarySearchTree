@@ -18,11 +18,15 @@ class BinarySearchTree
 {
     // printeaza nodurile arborelui in ordine crescatoare
     // pornind de la un anumit nod;
-    virtual std::ostream &in_order_tree_print(std::ostream &out, const Node *x) const;
+    std::ostream &in_order_tree_print(std::ostream &out, const Node *x) const;
 
     void clear(const Node *x);
 protected:
     Node *root; // radacina arborelui;
+
+    // pentru compatibilitate, in cazul unui arbore simplu va fi nullptr,
+    // iar pt rb-tree, pointeaza catre un tip special de nod, de culoare BLACK;
+    Node *nil;
 
 public:
     BinarySearchTree();
@@ -33,6 +37,8 @@ public:
     // returneaza radacina arborelui;
     const Node *get_root() const;
 
+    const Node *search(const Node *x, Node k) const;
+
     // insereaza o noua cheie in arbore;
     virtual void insert(Node x);
 
@@ -40,10 +46,12 @@ public:
     virtual void remove(Node x);
 
     // returneaza cheia minima a arborelui;
-    Node min() const;
+    const Node *min(const Node *x) const;
+    Node minimum() const;
 
     // returneaza cheia maxima a arborelui;
-    Node max() const;
+    const Node *max(const Node *x) const;
+    Node maximum() const;
 
     // returneaza succesorul;
     Node successor(Node x) const;

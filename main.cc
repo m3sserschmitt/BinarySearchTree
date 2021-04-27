@@ -8,33 +8,6 @@
 
 using namespace std;
 
-// void print_tree(stack<RedBlackNode *> &s)
-// {
-//     // static stack<RedBlackNode *> s;
-//     // s.push(n);
-
-//     while(not s.empty())
-//     {
-//         RedBlackNode *n = s.top();
-
-//         RedBlackNode *left = dynamic_cast<RedBlackNode *>((Node *)n->get_left());
-//         RedBlackNode *right = dynamic_cast<RedBlackNode *>((Node *)n->get_right());
-
-//         if(left)
-//         {
-//             s.push(left);
-//         }
-
-//         if(right)
-//         {
-//             s.push(right);
-//         }
-
-//         cout << left << "(" << left->get_color()
-//     }
-
-// }
-
 int main()
 {
     RBBinarySearchTree tree;
@@ -45,17 +18,20 @@ int main()
     tree.insert(22);
     tree.insert(-12);
     tree.insert(100);
-    tree.insert(200);
+    tree.insert(201);
     tree.insert(-200);
     tree.insert(30);
 
     cout << tree << "\n";
 
-    cout << tree.min() << '\n';
-    cout << tree.max() << '\n';
+    // cout << tree.minimum() << '\n';
+    // cout << tree.maximum() << '\n';
 
-    cout << tree.successor(1) << '\n';
-    cout << tree.predecessor(100) << '\n';
+    int m = tree.minimum();
+    cout << "min: " << m << "\n";
+
+    cout << tree.successor(30) << '\n';
+    cout << tree.predecessor(12) << '\n';
 
     // RedBlackNode *y = new RedBlackNode(12, BLACK);
     // Node *x = y;

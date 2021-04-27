@@ -65,6 +65,11 @@ void Node::set_key(int x)
     this->key = key;
 }
 
+Node::operator int() const
+{
+    return this->key;
+}
+
 Node &Node::operator=(const Node &node)
 {
     if (this != &node)

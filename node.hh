@@ -55,6 +55,8 @@ public:
     Node &operator=(const Node &node);
     Node &operator=(int key);
 
+    operator int() const;
+
     friend std::ostream &operator<<(std::ostream &out, const Node &node);
     friend std::istream &operator>>(std::istream &in, Node &node);
 };
