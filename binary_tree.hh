@@ -18,26 +18,53 @@ class BinarySearchTree
 {
     // printeaza nodurile arborelui in ordine crescatoare
     // pornind de la un anumit nod;
-    std::ostream &in_order_tree_print(std::ostream &out, const Node *x) const;
+    std::ostream &in_order_tree_print(std::ostream &out, const Node *x, bool &c) const;
 
     void clear(const Node *x);
+
 protected:
-    Node *root; // radacina arborelui;
+    // radacina arborelui;
+    Node *root;
 
     // pentru compatibilitate, in cazul unui arbore simplu va fi nullptr,
     // iar pt rb-tree, pointeaza catre un tip special de nod, de culoare BLACK;
     Node *nil;
 
+    // muta nodul v in locul nodului u
+    // (deci tot subarborele cu radacina in v este "transportat" in locul nodului u)
+    void transplant(Node *u, Node *v);
+
 public:
     BinarySearchTree();
     virtual ~BinarySearchTree();
 
-    // metodele din cerinta;
-
     // returneaza radacina arborelui;
     const Node *get_root() const;
 
+    // cauta nodul cu cheia k din subarborele cu radacina x;
     const Node *search(const Node *x, Node k) const;
+
+    // insereaza nodul x in arbore;
+    const Node *insert(Node *x);
+
+    // returneaza nodul cu cheia minima din subarborele cu radacina in nodul x;
+    const Node *minimum(const Node *x) const;
+
+    // returneaza nodul cu cheia maxima din subarborele cu radacina in nodul x;
+    const Node *maximum(const Node *x) const;
+
+    // returneaza nodul succesor al nodului x;
+    const Node *successor(const Node *x) const;
+
+    // returneaza nodul predecesor nodului x;
+    const Node *predecessor(const Node *x) const;
+
+    // elibereaza recursiv memoria pentru toate nodurile arborelui;
+    void clear();
+
+    /*
+     * Metodele din cerinta proiectului;
+     */
 
     // insereaza o noua cheie in arbore;
     virtual void insert(Node x);
@@ -45,18 +72,16 @@ public:
     // sterge o cheie din arbore;
     virtual void remove(Node x);
 
-    // returneaza cheia minima a arborelui;
-    const Node *min(const Node *x) const;
+    // returneaza minimul din intregul arbore;
     Node minimum() const;
 
-    // returneaza cheia maxima a arborelui;
-    const Node *max(const Node *x) const;
+    // returneaza maximul din intregul arbore;
     Node maximum() const;
 
-    // returneaza succesorul;
+    // returneaza succesorul lui x;
     Node successor(Node x) const;
 
-    // returneaza predecesorului;
+    // returneaza predecesorului lui x;
     Node predecessor(Node x) const;
 
     // returneaza elementul cu indexul k in ordine crescatoare;
@@ -67,9 +92,6 @@ public:
 
     // returneaza true daca nodul x exista in arbore, altfel false;
     bool exists(Node x) const;
-
-    // elibereaza memoria pentru toate nodurile arborelui;
-    void clear();
 
     friend std::ostream &operator<<(std::ostream &out, const BinarySearchTree &tree);
 };

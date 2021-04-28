@@ -4,42 +4,43 @@
 #include "binary_tree.hh"
 #include "rb_binary_tree.hh"
 #include "rb_node.hh"
-#include <stack>
+#include <list>
 
 using namespace std;
 
 int main()
 {
+    list<int> elements = {1, 2, 54, -2, -4, 10, -10, 20, 45, 12, 45, 100, 300, 500, -201};
+
+    list<int>::iterator it = elements.begin();
+    list<int>::iterator it_end = elements.end();
+
     RBBinarySearchTree tree;
-    tree.insert(1);
-    tree.insert(2);
-    tree.insert(-10);
-    tree.insert(12);
-    tree.insert(22);
-    tree.insert(-12);
-    tree.insert(100);
-    tree.insert(201);
-    tree.insert(-200);
-    tree.insert(30);
 
-    cout << tree << "\n";
+    for (; it != it_end; it++)
+    {
+        tree.insert(*it);
+    }
 
-    // cout << tree.minimum() << '\n';
-    // cout << tree.maximum() << '\n';
+    cout << "tree: " << tree << "\n";
 
-    int m = tree.minimum();
-    cout << "min: " << m << "\n";
+    cout << "min: " << tree.minimum() << '\n';
+    cout << "max: " << tree.maximum() << '\n';
 
-    cout << tree.successor(30) << '\n';
-    cout << tree.predecessor(12) << '\n';
+    // for (it = elements.begin(); it != it_end; it++)
+    // {
+    //     try
+    //     {
+    //         cout << "predecessor of " << *it << " is: " << tree.predecessor(*it) << "\n";
+    //         cout << "successor of " << *it << " is: " << tree.successor(*it) << "\n";
+    //     }
+    //     catch (const char *err)
+    //     {
+    //         cout << err << "\n";
+    //     }
 
-    // RedBlackNode *y = new RedBlackNode(12, BLACK);
-    // Node *x = y;
-
-    // cout << *x << "\n";
-    // cout << reinterpret_cast<RedBlackNode *>(x)->get_color() << "\n";
-
+    //     cout << "\n";
+    // }
 
     return 0;
 }
-

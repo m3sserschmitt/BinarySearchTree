@@ -6,24 +6,16 @@
 
 #IncludeRegexTransform: 
 
+/home/rujas/code_workspace/proiect_SD/binary_tree.cc
+binary_tree.hh
+/home/rujas/code_workspace/proiect_SD/binary_tree.hh
+iostream
+-
+
 /home/rujas/code_workspace/proiect_SD/binary_tree.hh
 node.hh
 /home/rujas/code_workspace/proiect_SD/node.hh
 ostream
--
-
-/home/rujas/code_workspace/proiect_SD/main.cc
-node.hh
-/home/rujas/code_workspace/proiect_SD/node.hh
-iostream
--
-binary_tree.hh
-/home/rujas/code_workspace/proiect_SD/binary_tree.hh
-rb_binary_tree.hh
-/home/rujas/code_workspace/proiect_SD/rb_binary_tree.hh
-rb_node.hh
-/home/rujas/code_workspace/proiect_SD/rb_node.hh
-stack
 -
 
 /home/rujas/code_workspace/proiect_SD/node.hh
@@ -31,18 +23,4 @@ ostream
 -
 istream
 -
-
-/home/rujas/code_workspace/proiect_SD/rb_binary_tree.cc
-rb_binary_tree.hh
-/home/rujas/code_workspace/proiect_SD/rb_binary_tree.hh
-
-/home/rujas/code_workspace/proiect_SD/rb_binary_tree.hh
-binary_tree.hh
-/home/rujas/code_workspace/proiect_SD/binary_tree.hh
-rb_node.hh
-/home/rujas/code_workspace/proiect_SD/rb_node.hh
-
-/home/rujas/code_workspace/proiect_SD/rb_node.hh
-node.hh
-/home/rujas/code_workspace/proiect_SD/node.hh
 

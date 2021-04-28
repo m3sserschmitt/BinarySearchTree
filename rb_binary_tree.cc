@@ -159,53 +159,18 @@ void RBBinarySearchTree::insert_fixup(RedBlackNode *z)
 
 void RBBinarySearchTree::insert(Node n)
 {
-    Node *y = this->nil;
-    Node *x = this->root;
+    // copiaza cheia lui n intr-un RedBlackNode;
     RedBlackNode *z = new RedBlackNode(n);
 
-    while (x != this->nil)
-    {
-        y = x;
-        if (z->get_key() < x->get_key())
-        {
-            x = (Node *)x->get_left();
-        }
-        else
-        {
-            x = (Node *)x->get_right();
-        }
-    }
-
-    z->set_parent(y);
-
-    if (y == this->nil)
-    {
-        this->root = z;
-    }
-    else if (z->get_key() < y->get_key())
-    {
-        y->set_left(z);
-    }
-    else
-    {
-        y->set_right(z);
-    }
-
+    // inserarea propriu-zisa nu tine cont de culoare
+    // deci se poate apela metoda insert ca intr-un arbore simplu;
+    BinarySearchTree::insert(z);
+    
+    // seteaza copiii lui z la nil;
     z->set_left(this->nil);
     z->set_right(this->nil);
 
+    // insert_fixup este specifica unui RedBlackSearchTree
+    // si restabileste regulile unui RB-Tree;
     this->insert_fixup(z);
 }
-
-// void RBBinarySearchTree::print_tree()
-// {
-//     stack<RedBlackNode *> s;
-//     s.push(dynamic_cast<RedBlackNode *>(this->root));
-
-//     while(!s.empty())
-//     {
-//         RedBlackNode *x = s.top();
-//         s.pop();
-
-//     }
-// }

@@ -20,28 +20,51 @@ const Node *BinarySearchTree::get_root() const
     return this->root;
 }
 
-std::ostream &BinarySearchTree::in_order_tree_print(std::ostream &out, const Node *x) const
+void BinarySearchTree::transplant(Node *u, Node *v)
+{
+    Node *u_parent = (Node *)u->get_parent();
+
+    if(u->get_parent() == this->nil)
+    {
+        this->root = v;
+    } else if (u == u_parent->get_left())
+    {
+        u_parent->set_left(v);
+    } else {
+        u_parent->set_right(v);
+    }
+
+    if(v != this->nil)
+    {
+        v->set_parent(u->get_parent());
+    }
+}
+
+std::ostream &BinarySearchTree::in_order_tree_print(std::ostream &out, const Node *x, bool &c) const
 {
     if (x != this->nil)
     {
-        this->in_order_tree_print(out, x->get_left());
-        out << *x << " ";
-        this->in_order_tree_print(out, x->get_right());
+        // se parcurge recursiv arborele pana la nodul
+        // cu cheia cea mai mica;
+        this->in_order_tree_print(out, x->get_left(), c);
+
+        // initial c = 0, deci nu se printeaza virgula
+        if (c)
+        {
+            out << ", ";
+        } // dupa ce se printeza primul nod, c devine 1
+        // deci la urmatorul apel va printa si virgula
+        else
+        {
+            c = 1;
+        }
+
+        out << *x;
+
+        this->in_order_tree_print(out, x->get_right(), c);
     }
 
     return out;
-}
-
-void BinarySearchTree::clear(const Node *x)
-{
-    // elibereaza recursiv memoria alocata pe fiecare nod;
-    if (x != this->nil)
-    {
-        this->clear(x->get_left());
-        this->clear(x->get_right());
-
-        delete x;
-    }
 }
 
 const Node *BinarySearchTree::search(const Node *x, Node k) const
@@ -61,109 +84,13 @@ const Node *BinarySearchTree::search(const Node *x, Node k) const
     return x;
 }
 
-const Node *BinarySearchTree::min(const Node *x) const
-{
-    while (x->get_left() != this->nil)
-        x = x->get_left();
-
-    return x;
-}
-
-Node BinarySearchTree::minimum() const
-{
-    if (this->root == this->nil)
-    {
-        throw "Tree is empty";
-    }
-
-    return *this->min(this->root);
-}
-
-const Node *BinarySearchTree::max(const Node *x) const
-{
-    while (x->get_right() != this->nil)
-        x = x->get_right();
-
-    return x;
-}
-
-Node BinarySearchTree::maximum() const
-{
-    if (this->root == this->nil)
-    {
-        throw "Tree is empty";
-    }
-
-    return *this->max(this->root);
-}
-
-Node BinarySearchTree::successor(Node x) const
-{
-    if (this->root == this->nil)
-        throw "Tree is empty";
-
-    // cauta nodul cu cheia lui x;
-    const Node *node = this->search(this->root, x);
-
-    // eroare, daca nu s-a gasit cheia
-    if (node == this->nil)
-        throw "Key does not exist";
-
-    // daca avem copil drept
-    if (node->get_right() != this->nil)
-    {
-        return *this->min(node->get_right());
-    }
-
-    const Node *y = node->get_parent();
-
-    while (y != this->nil and node == y->get_right())
-    {
-        node = y;
-        y = y->get_parent();
-    }
-
-    return *y;
-}
-
-Node BinarySearchTree::predecessor(Node x) const
-{
-    if (this->root == this->nil)
-        throw "Tree is empty";
-
-    // cauta nodul cu cheia lui x;
-    const Node *node = this->search(this->root, x);
-
-    if (node == this->nil)
-        throw "Key does not exist";
-
-    if (node->get_left() != this->nil) // nu are fiu drept
-    {
-        return *this->max(node->get_left());
-    }
-
-    const Node *y = node->get_parent();
-
-    while (y != this->nil and node == y->get_left())
-    {
-        node = y;
-        y = y->get_parent();
-    }
-
-    return *y;
-}
-
-void BinarySearchTree::insert(Node n)
+const Node *BinarySearchTree::insert(Node *z)
 {
     // pointer la radacina arborelui;
     Node *x = this->root;
 
     // auxiliar;
-    Node *y = nullptr;
-
-    // noul nod care trebuie adaugat, cu cheia
-    // corespunzatoare;
-    Node *z = new Node(n);
+    Node *y = this->nil;
 
     // traverseaza arborele:
     // la fiecare pas se decide daca merge la stanga sau dreapata
@@ -200,6 +127,152 @@ void BinarySearchTree::insert(Node n)
     {
         y->set_right(z);
     }
+
+    return z;
+}
+
+const Node *BinarySearchTree::minimum(const Node *x) const
+{
+    while (x->get_left() != this->nil)
+        x = x->get_left();
+
+    return x;
+}
+
+const Node *BinarySearchTree::maximum(const Node *x) const
+{
+    while (x->get_right() != this->nil)
+        x = x->get_right();
+
+    return x;
+}
+
+const Node *BinarySearchTree::successor(const Node *x) const
+{
+    // daca avem copil drept
+    if (x->get_right() != this->nil)
+    {
+        return this->minimum(x->get_right());
+    }
+
+    const Node *y = x->get_parent();
+
+    while (y != this->nil and x == y->get_right())
+    {
+        x = y;
+        y = y->get_parent();
+    }
+
+    return y;
+}
+
+const Node *BinarySearchTree::predecessor(const Node *x) const
+{
+    if (x->get_left() != this->nil)
+    {
+        return this->maximum(x->get_left());
+    }
+
+    const Node *y = x->get_parent();
+
+    while (y != this->nil and x == y->get_left())
+    {
+        x = y;
+        y = y->get_parent();
+    }
+
+    return y;
+}
+
+void BinarySearchTree::clear(const Node *x)
+{
+    // elibereaza recursiv memoria alocata pe fiecare nod;
+    if (x != this->nil)
+    {
+        this->clear(x->get_left());
+        this->clear(x->get_right());
+
+        delete x;
+    }
+}
+
+
+
+
+void BinarySearchTree::insert(Node n)
+{
+    // noul nod care va fi inserat;
+    Node *z = new Node(n);
+
+    this->insert(z);
+}
+
+Node BinarySearchTree::minimum() const
+{
+    if (this->root == this->nil)
+    {
+        throw "Tree is empty";
+    }
+
+    return *this->minimum(this->root);
+}
+
+Node BinarySearchTree::maximum() const
+{
+    if (this->root == this->nil)
+    {
+        throw "Tree is empty";
+    }
+
+    return *this->maximum(this->root);
+}
+
+Node BinarySearchTree::successor(Node x) const
+{
+    if (this->root == this->nil)
+        throw "Tree is empty";
+
+    // cauta nodul cu cheia lui x;
+    const Node *z = this->search(this->root, x);
+
+    // eroare, daca nu s-a gasit cheia
+    if (z == this->nil)
+        throw "Key does not exist";
+
+    const Node *x_successor = this->successor(z);
+
+    if (x_successor == this->nil)
+    {
+        throw "Successor does not exist";
+    }
+
+    return *x_successor;
+}
+
+Node BinarySearchTree::predecessor(Node x) const
+{
+    if (this->root == this->nil)
+        throw "Tree is empty";
+
+    // cauta nodul cu cheia lui x;
+    const Node *z = this->search(this->root, x);
+
+    if (z == this->nil)
+        throw "Key does not exist";
+
+    if (z->get_left() != this->nil)
+    {
+        return *this->maximum(z->get_left());
+    }
+
+    const Node *x_predecessor = this->predecessor(z);
+
+    if (x_predecessor == this->nil)
+    {
+        throw "Predecessor does not exists";
+    }
+
+    return *x_predecessor;
 }
 
 void BinarySearchTree::remove(Node n)
@@ -214,5 +287,13 @@ void BinarySearchTree::clear()
 std::ostream &operator<<(std::ostream &out, const BinarySearchTree &tree)
 {
     const Node *root = tree.root;
-    return tree.in_order_tree_print(out, root);
+
+    // la primul apel nu se printeaza virgula
+    bool c = 0;
+
+    out << "{";
+    tree.in_order_tree_print(out, root, c);
+    out << "}";
+
+    return out;
 }
