@@ -4,6 +4,7 @@
 #include "binary_tree.hh"
 #include "rb_binary_tree.hh"
 #include "rb_node.hh"
+
 #include <list>
 
 using namespace std;

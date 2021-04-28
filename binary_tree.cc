@@ -8,6 +8,7 @@ BinarySearchTree::BinarySearchTree()
 {
     this->root = nullptr;
     this->nil = nullptr;
+    this->count = 0;
 }
 
 BinarySearchTree::~BinarySearchTree()
@@ -138,6 +139,8 @@ const Node *BinarySearchTree::insert(Node *z)
         y->set_right(z);
     }
 
+    this->count ++;
+
     return z;
 }
 
@@ -214,6 +217,10 @@ void BinarySearchTree::insert(Node n)
     this->insert(z);
 }
 
+void BinarySearchTree::remove(Node n)
+{
+}
+
 Node BinarySearchTree::minimum() const
 {
     if (this->root == this->nil)
@@ -282,8 +289,9 @@ Node BinarySearchTree::predecessor(Node x) const
     return *x_predecessor;
 }
 
-void BinarySearchTree::remove(Node n)
+size_t BinarySearchTree::size() const
 {
+    return this->count;
 }
 
 void BinarySearchTree::clear()

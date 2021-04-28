@@ -30,6 +30,9 @@ protected:
     // iar pt rb-tree, pointeaza catre un tip special de nod, de culoare BLACK;
     Node *nil;
 
+    // numarul de elemente;
+    size_t count;
+
     // muta nodul v in locul nodului u
     // (deci tot subarborele cu radacina in v este "transportat" in locul nodului u)
     void transplant(Node *u, Node *v);
@@ -88,7 +91,7 @@ public:
     Node kth_element(int k) const;
 
     // returneaza numarul de noduri din arbore;
-    int size() const;
+    size_t size() const;
 
     // returneaza true daca nodul x exista in arbore, altfel false;
     bool exists(Node x) const;
