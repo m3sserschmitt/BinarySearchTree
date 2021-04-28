@@ -22,19 +22,29 @@ const Node *BinarySearchTree::get_root() const
 
 void BinarySearchTree::transplant(Node *u, Node *v)
 {
+    // parintele nodului u
     Node *u_parent = (Node *)u->get_parent();
 
-    if(u->get_parent() == this->nil)
+    // daca u nu are parinte inseamna ca e radacina
+    // deci v devine noua radacina
+    if (u->get_parent() == this->nil)
     {
         this->root = v;
-    } else if (u == u_parent->get_left())
+    }
+    // daca u este copil stang
+    // atunci v devine copil stang pentru parintele lui u;
+    else if (u == u_parent->get_left())
     {
         u_parent->set_left(v);
-    } else {
+    }
+    // altfel, v devine copil drept pentru parintele lui u;
+    else
+    {
         u_parent->set_right(v);
     }
 
-    if(v != this->nil)
+    // daca v e nenul, atunci parintele lui u devine parintele lui v;
+    if (v != this->nil)
     {
         v->set_parent(u->get_parent());
     }
@@ -195,9 +205,6 @@ void BinarySearchTree::clear(const Node *x)
         delete x;
     }
 }
-
-
-
 
 void BinarySearchTree::insert(Node n)
 {
