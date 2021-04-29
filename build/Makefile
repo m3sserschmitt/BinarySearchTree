@@ -539,33 +539,6 @@ ContinuousSubmit/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ContinuousSubmit.dir/build.make CMakeFiles/ContinuousSubmit.dir/build
 .PHONY : ContinuousSubmit/fast
 
-binary_tree.o: binary_tree.cc.o
-
-.PHONY : binary_tree.o
-
-# target to build an object file
-binary_tree.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Proiect_SD.dir/build.make CMakeFiles/Proiect_SD.dir/binary_tree.cc.o
-.PHONY : binary_tree.cc.o
-
-binary_tree.i: binary_tree.cc.i
-
-.PHONY : binary_tree.i
-
-# target to preprocess a source file
-binary_tree.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Proiect_SD.dir/build.make CMakeFiles/Proiect_SD.dir/binary_tree.cc.i
-.PHONY : binary_tree.cc.i
-
-binary_tree.s: binary_tree.cc.s
-
-.PHONY : binary_tree.s
-
-# target to generate assembly for a file
-binary_tree.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Proiect_SD.dir/build.make CMakeFiles/Proiect_SD.dir/binary_tree.cc.s
-.PHONY : binary_tree.cc.s
-
 main.o: main.cc.o
 
 .PHONY : main.o
@@ -592,87 +565,6 @@ main.s: main.cc.s
 main.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Proiect_SD.dir/build.make CMakeFiles/Proiect_SD.dir/main.cc.s
 .PHONY : main.cc.s
-
-node.o: node.cc.o
-
-.PHONY : node.o
-
-# target to build an object file
-node.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Proiect_SD.dir/build.make CMakeFiles/Proiect_SD.dir/node.cc.o
-.PHONY : node.cc.o
-
-node.i: node.cc.i
-
-.PHONY : node.i
-
-# target to preprocess a source file
-node.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Proiect_SD.dir/build.make CMakeFiles/Proiect_SD.dir/node.cc.i
-.PHONY : node.cc.i
-
-node.s: node.cc.s
-
-.PHONY : node.s
-
-# target to generate assembly for a file
-node.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Proiect_SD.dir/build.make CMakeFiles/Proiect_SD.dir/node.cc.s
-.PHONY : node.cc.s
-
-rb_binary_tree.o: rb_binary_tree.cc.o
-
-.PHONY : rb_binary_tree.o
-
-# target to build an object file
-rb_binary_tree.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Proiect_SD.dir/build.make CMakeFiles/Proiect_SD.dir/rb_binary_tree.cc.o
-.PHONY : rb_binary_tree.cc.o
-
-rb_binary_tree.i: rb_binary_tree.cc.i
-
-.PHONY : rb_binary_tree.i
-
-# target to preprocess a source file
-rb_binary_tree.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Proiect_SD.dir/build.make CMakeFiles/Proiect_SD.dir/rb_binary_tree.cc.i
-.PHONY : rb_binary_tree.cc.i
-
-rb_binary_tree.s: rb_binary_tree.cc.s
-
-.PHONY : rb_binary_tree.s
-
-# target to generate assembly for a file
-rb_binary_tree.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Proiect_SD.dir/build.make CMakeFiles/Proiect_SD.dir/rb_binary_tree.cc.s
-.PHONY : rb_binary_tree.cc.s
-
-rb_node.o: rb_node.cc.o
-
-.PHONY : rb_node.o
-
-# target to build an object file
-rb_node.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Proiect_SD.dir/build.make CMakeFiles/Proiect_SD.dir/rb_node.cc.o
-.PHONY : rb_node.cc.o
-
-rb_node.i: rb_node.cc.i
-
-.PHONY : rb_node.i
-
-# target to preprocess a source file
-rb_node.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Proiect_SD.dir/build.make CMakeFiles/Proiect_SD.dir/rb_node.cc.i
-.PHONY : rb_node.cc.i
-
-rb_node.s: rb_node.cc.s
-
-.PHONY : rb_node.s
-
-# target to generate assembly for a file
-rb_node.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Proiect_SD.dir/build.make CMakeFiles/Proiect_SD.dir/rb_node.cc.s
-.PHONY : rb_node.cc.s
 
 # Help Target
 help:
@@ -714,21 +606,9 @@ help:
 	@echo "... NightlyTest"
 	@echo "... NightlyUpdate"
 	@echo "... Proiect_SD"
-	@echo "... binary_tree.o"
-	@echo "... binary_tree.i"
-	@echo "... binary_tree.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... node.o"
-	@echo "... node.i"
-	@echo "... node.s"
-	@echo "... rb_binary_tree.o"
-	@echo "... rb_binary_tree.i"
-	@echo "... rb_binary_tree.s"
-	@echo "... rb_node.o"
-	@echo "... rb_node.i"
-	@echo "... rb_node.s"
 .PHONY : help
 
 
