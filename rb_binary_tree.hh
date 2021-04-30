@@ -4,8 +4,8 @@
 #include "binary_tree.hh"
 #include "rb_node.hh"
 
-#define RB_PARENT(z) dynamic_cast<RedBlackNode<T> *>((Node<T> *)z->get_parent())
-#define RB_GRANDPARENT(z) dynamic_cast<RedBlackNode<T> *>((Node<T> *)z->get_parent()->get_parent())
+#define RB_PARENT(z) ((RedBlackNode<T> *)z->get_parent())
+#define RB_GRANDPARENT(z) ((RedBlackNode<T> *)(z->get_parent()->get_parent()))
 
 template <class T>
 class RBBinarySearchTree : public BinarySearchTree<T>
@@ -17,7 +17,7 @@ class RBBinarySearchTree : public BinarySearchTree<T>
     void right_rotate(Node<T> *x);
 
     // restabileste culorile in arbore dupa inserarea unui nou nod;
-    void insert_fixup(Node<T> *z);
+    void insert_fixup(RedBlackNode<T> *z);
 
 public:
     RBBinarySearchTree();
@@ -122,63 +122,63 @@ void RBBinarySearchTree<T>::right_rotate(Node<T> *x)
 }
 
 template <class T>
-void RBBinarySearchTree<T>::insert_fixup(Node<T> *z)
+void RBBinarySearchTree<T>::insert_fixup(RedBlackNode<T> *z)
 {
     RedBlackNode<T> *y;
 
     while (RB_PARENT(z)->get_color() == RED)
     {
-        if (z->get_parent() == z->get_parent()->get_parent()->get_left())
+        if (z->get_parent() == RB_GRANDPARENT(z)->get_left())
         {
-            y = dynamic_cast<RedBlackNode<T> *>((Node<T> *)z->get_parent()->get_parent()->get_right());
+            y = (RedBlackNode<T> *)z->get_parent()->get_parent()->get_right();
 
             if (y->get_color() == RED)
             {
                 RB_PARENT(z)->set_color(BLACK);
                 y->set_color(BLACK);
                 RB_GRANDPARENT(z)->set_color(RED);
-                z = (Node<T> *)z->get_parent()->get_parent();
+                z = RB_GRANDPARENT(z);
             }
             else
             {
                 if (z == z->get_parent()->get_right())
                 {
-                    z = (Node<T> *)z->get_parent();
+                    z = RB_PARENT(z);
                     this->left_rotate(z);
                 }
 
                 RB_PARENT(z)->set_color(BLACK);
                 RB_GRANDPARENT(z)->set_color(RED);
-                this->right_rotate((Node<T> *)z->get_parent()->get_parent());
+                this->right_rotate(RB_GRANDPARENT(z));
             }
         }
         else
         {
-            y = dynamic_cast<RedBlackNode<T> *>((Node<T> *)z->get_parent()->get_parent()->get_left());
+            y = (RedBlackNode<T> *)z->get_parent()->get_parent()->get_left();
 
             if (y->get_color() == RED)
             {
                 RB_PARENT(z)->set_color(BLACK);
                 y->set_color(BLACK);
                 RB_GRANDPARENT(z)->set_color(RED);
-                z = (Node<T> *)z->get_parent()->get_parent();
+                z = RB_GRANDPARENT(z);
             }
             else
             {
                 if (z == z->get_parent()->get_left())
                 {
-                    z = (Node<T> *)z->get_parent();
+                    z = RB_PARENT(z);
                     this->right_rotate(z);
                 }
-                RB_PARENT(z)->set_color(BLACK);
 
+                RB_PARENT(z)->set_color(BLACK);
                 RB_GRANDPARENT(z)->set_color(RED);
-                this->left_rotate((Node<T> *)z->get_parent()->get_parent());
+                this->left_rotate(RB_GRANDPARENT(z));
             }
         }
     }
 
-    dynamic_cast<RedBlackNode<T> *>(this->root)->set_color(BLACK);
+    ((RedBlackNode<T> *)this->root)->set_color(BLACK);
 }
 
 template <class T>

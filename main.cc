@@ -5,8 +5,29 @@
 
 using namespace std;
 
+template <class T>
+struct A{
+    A *p;
+    A *l;
+    A *r;
+    T k;
+} ;
+
+template <class T>
+struct B: A<T>{
+    int c;
+};
+
 int main()
 {
+    // A<int> *a = new B<int>;
+    // ((B<int> *)a)->c = 10;
+
+    // cout << ((B<int> *)a)->c;
+
+    // Node<int> *n = new RedBlackNode<int>;
+    // ((RedBlackNode<int> *)n)->set_color(BLACK);
+    
     list<int> elements = {1, 2, -2, 5, -3, 20, 50, -30, 30, 21, -4};
 
     list<int>::iterator it = elements.begin();

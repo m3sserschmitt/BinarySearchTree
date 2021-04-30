@@ -23,6 +23,15 @@ public:
     RedBlackNode(const RedBlackNode<T> &node);
     RedBlackNode(const Node<T> &node);
 
+    // returneaza nodul parinte;
+    const RedBlackNode<T> *get_parent() const;
+
+    // returneaza copilul stang;
+    const RedBlackNode<T> *get_left() const;
+
+    // returneaza copilul drept;
+    const RedBlackNode<T> *get_right() const;
+
     // returneaza culoarea nodului;
     NodeColor get_color() const;
 
@@ -32,6 +41,24 @@ public:
     RedBlackNode<T> &operator=(const RedBlackNode<T> &node);
     RedBlackNode<T> &operator=(T x);
 };
+
+template <class T>
+const RedBlackNode<T> *RedBlackNode<T>::get_parent() const
+{
+    return (RedBlackNode<T> *)this->p;
+}
+
+template <class T>
+const RedBlackNode<T> *RedBlackNode<T>::get_left() const
+{
+    return (RedBlackNode<T> *)this->left;
+}
+
+template <class T>
+const RedBlackNode<T> *RedBlackNode<T>::get_right() const
+{
+    return (RedBlackNode<T> *)this->right;
+}
 
 template <class T>
 RedBlackNode<T>::RedBlackNode() : Node<T>()
