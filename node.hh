@@ -18,16 +18,21 @@ template <class T>
 class Node
 {
 protected:
-    Node *p;     // parintele nodului;
-    Node *left;  // copilul stang;
-    Node *right; // copilul drept;
-    T key;       // cheia nodului;
+    Node *p;      // parintele nodului;
+    Node *left;   // copilul stang;
+    Node *right;  // copilul drept;
+    size_t count; // de cate ori se repeta cheia in multime;
+    T key;        // cheia nodului;
 
 public:
     Node();
     Node(T x);
     Node(const Node &node);
     virtual ~Node();
+
+    void inc_count();
+    void dec_count();
+    size_t get_count() const;
 
     // returneaza nodul parinte;
     const Node<T> *get_parent() const;
@@ -71,6 +76,7 @@ Node<T>::Node()
     this->p = nullptr;
     this->left = nullptr;
     this->right = nullptr;
+    this->count = 1;
 }
 
 template <class T>
@@ -79,6 +85,7 @@ Node<T>::Node(T key)
     this->p = nullptr;
     this->left = nullptr;
     this->right = nullptr;
+    this->count = 1;
     this->key = key;
 }
 
@@ -89,10 +96,29 @@ Node<T>::Node(const Node<T> &node)
     this->left = node.left;
     this->right = node.right;
     this->key = node.key;
+    this->count = node.count;
 }
 
 template <class T>
 Node<T>::~Node() {}
+
+template <class T>
+void Node<T>::inc_count()
+{
+    this->count++;
+}
+
+template <class T>
+void Node<T>::dec_count()
+{
+    this->count--;
+}
+
+template <class T>
+size_t Node<T>::get_count() const
+{
+    return this->count;
+}
 
 template <class T>
 const Node<T> *Node<T>::get_parent() const

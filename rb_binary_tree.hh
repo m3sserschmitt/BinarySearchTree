@@ -23,7 +23,7 @@ public:
     RBBinarySearchTree();
     ~RBBinarySearchTree();
 
-    void insert(Node<T> z);
+    void insert(T x);
 };
 
 template <class T>
@@ -182,22 +182,23 @@ void RBBinarySearchTree<T>::insert_fixup(RedBlackNode<T> *z)
 }
 
 template <class T>
-void RBBinarySearchTree<T>::insert(Node<T> n)
+void RBBinarySearchTree<T>::insert(T x)
 {
     // copiaza cheia lui n intr-un RedBlackNode;
-    RedBlackNode<T> *z = new RedBlackNode<T>(n);
+    RedBlackNode<T> *z = new RedBlackNode<T>(x);
 
     // inserarea propriu-zisa nu tine cont de culoare
     // deci se poate apela metoda insert ca intr-un arbore simplu;
-    BinarySearchTree<T>::insert(z);
+    if (BinarySearchTree<T>::insert(z) != this->nil)
+    {
+        // seteaza copiii lui z la nil;
+        z->set_left(this->nil);
+        z->set_right(this->nil);
 
-    // seteaza copiii lui z la nil;
-    z->set_left(this->nil);
-    z->set_right(this->nil);
-
-    // insert_fixup este specifica unui RedBlackSearchTree
-    // si restabileste regulile unui RB-Tree;
-    this->insert_fixup(z);
+        // insert_fixup este specifica unui RedBlackSearchTree
+        // si restabileste regulile unui RB-Tree;
+        this->insert_fixup(z);
+    }
 }
 
 #endif

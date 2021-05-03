@@ -11,11 +11,15 @@ node.hh
 /home/rujas/code_workspace/proiect_SD/node.hh
 ostream
 -
+iostream
+-
 
 /home/rujas/code_workspace/proiect_SD/main.cc
 iostream
 -
 list
+-
+set
 -
 s.hh
 /home/rujas/code_workspace/proiect_SD/s.hh
