@@ -39,10 +39,6 @@ protected:
     // (deci tot subarborele cu radacina in v este "transportat" in locul nodului u)
     void transplant(Node<T> *u, Node<T> *v);
 
-public:
-    BinarySearchTree();
-    virtual ~BinarySearchTree();
-
     // returneaza radacina arborelui;
     const Node<T> *get_root() const;
 
@@ -64,8 +60,11 @@ public:
     // returneaza nodul predecesor nodului x;
     const Node<T> *predecessor(const Node<T> *x) const;
 
-    // elibereaza recursiv memoria pentru toate nodurile arborelui;
-    void clear();
+    void kth_element(const Node<T> *x, Node<T> **target, size_t k, size_t &c) const;
+
+public:
+    BinarySearchTree();
+    virtual ~BinarySearchTree();
 
     /*
      * Metodele din cerinta proiectului;
@@ -90,13 +89,16 @@ public:
     T predecessor(T x) const;
 
     // returneaza elementul cu indexul k in ordine crescatoare;
-    T kth_element(int k) const;
+    T kth_element(size_t k) const;
 
     // returneaza numarul de noduri din arbore;
     size_t size() const;
 
     // returneaza true daca nodul x exista in arbore, altfel false;
     bool exists(T x) const;
+
+    // elibereaza recursiv memoria pentru toate nodurile arborelui;
+    void clear();
 
     template <class t>
     friend std::ostream &operator<<(std::ostream &out, const BinarySearchTree<t> &tree);
@@ -334,6 +336,23 @@ const Node<T> *BinarySearchTree<T>::predecessor(const Node<T> *x) const
 }
 
 template <class T>
+void BinarySearchTree<T>::kth_element(const Node<T> *x, Node<T> **target, size_t k, size_t &c) const
+{
+    if (x != this->nil and c < k)
+    {
+        this->kth_element(x->get_left(), target, k, c);
+
+        if (c < k)
+        {
+            *target = (Node<T> *)x;
+        }
+
+        c += x->get_count();
+        this->kth_element(x->get_right(), target, k, c);
+    }
+}
+
+template <class T>
 void BinarySearchTree<T>::clear(const Node<T> *x)
 {
     // elibereaza recursiv memoria alocata pe fiecare nod;
@@ -448,9 +467,25 @@ bool BinarySearchTree<T>::exists(T x) const
 }
 
 template <class T>
+T BinarySearchTree<T>::kth_element(size_t k) const
+{
+    if (not k or k > this->count)
+    {
+        throw "Requested element does not exist";
+    }
+
+    size_t c = 0;
+    Node<T> *target = this->nil;
+    this->kth_element(this->root, &target, k, c);
+
+    return *target;
+}
+
+template <class T>
 void BinarySearchTree<T>::clear()
 {
-    return this->clear(this->root);
+    this->clear(this->root);
+    this->root = this->nil;
 }
 
 template <class t>

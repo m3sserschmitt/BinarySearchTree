@@ -8,7 +8,7 @@ using namespace std;
 
 int main()
 {   
-    list<int> elements = {1, 6, 76, 6, 4, 6, 76, 1, 1, 4, 76, 1, 6, 4, 4};
+    list<int> elements = {1, 2, 3, 4, 5, 3, 10, -2, -4, 2, 1, 4, 3};
     set<int> dist_elements;
 
     list<int>::iterator it = elements.begin();
@@ -22,11 +22,13 @@ int main()
         dist_elements.insert(*it);
     }
 
-    cout << s.exists(200) << "\n";
+    cout << s.kth_element(7) << "\n";
+
+    // cout << s.exists(200) << "\n";
 
     cout << "tree: " << s << "\n";
 
-    cout << "min: " << s.minimum() << '\n';
+   /* cout << "min: " << s.minimum() << '\n';
     cout << "max: " << s.maximum() << '\n';
 
     set<int>::iterator dist_it = dist_elements.begin();
@@ -54,6 +56,6 @@ int main()
 
         cout << "\n";
     }
-
+*/
     return 0;
 }
