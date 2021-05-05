@@ -7,7 +7,7 @@
 using namespace std;
 
 int main()
-{   
+{
     list<int> elements = {1, 2, 3, 4, 5, 3, 10, -2, -4, 2, 1, 4, 3};
     set<int> dist_elements;
 
@@ -22,13 +22,15 @@ int main()
         dist_elements.insert(*it);
     }
 
-    cout << s.kth_element(7) << "\n";
+    //cout << s.kth_element(7) << "\n";
 
     // cout << s.exists(200) << "\n";
 
+    s.delete_node(10);
+
     cout << "tree: " << s << "\n";
 
-   /* cout << "min: " << s.minimum() << '\n';
+    /* cout << "min: " << s.minimum() << '\n';
     cout << "max: " << s.maximum() << '\n';
 
     set<int>::iterator dist_it = dist_elements.begin();
