@@ -15,6 +15,7 @@
         "*.tcc": "cpp",
         "fstream": "cpp",
         "sstream": "cpp",
-        "streambuf": "cpp"
+        "streambuf": "cpp",
+        "chrono": "cpp"
     }
 }

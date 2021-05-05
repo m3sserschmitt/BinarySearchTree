@@ -20,14 +20,19 @@ class RBBinarySearchTree : public BinarySearchTree<T>
     void insert_fixup(RedBlackNode<T> *z);
 
     //restabileste culorile in arbore dupa stergerea unui nod
-    void delete_fixup(RedBlackNode<T> *z);
+    void remove_fixup(RedBlackNode<T> *z);
+
+protected:
+    void remove_node(const Node<T> *z);
+
+    void transplant(Node<T> *u, Node<T> *v);
 
 public:
     RBBinarySearchTree();
     ~RBBinarySearchTree();
 
     void insert(T x);
-    void delete_node(T x);
+    // void remove(T x);
 };
 
 template <class T>
@@ -186,6 +191,14 @@ void RBBinarySearchTree<T>::insert_fixup(RedBlackNode<T> *z)
 }
 
 template <class T>
+void RBBinarySearchTree<T>::transplant(Node<T> *u, Node<T> *v)
+{
+    this->tree_transplant(u, v);
+
+    v->set_parent(u->get_parent());
+}
+
+template <class T>
 void RBBinarySearchTree<T>::insert(T x)
 {
     // copiaza cheia lui n intr-un RedBlackNode;
@@ -206,125 +219,133 @@ void RBBinarySearchTree<T>::insert(T x)
 }
 
 template <class T>
-void RBBinarySearchTree<T>::delete_node(T a)
+void RBBinarySearchTree<T>::remove_node(const Node<T> *z)
 {
     // copiaza cheia lui n intr-un RedBlackNode;
-    RedBlackNode<T> *z = new RedBlackNode<T>(a);
     RedBlackNode<T> *y;
     RedBlackNode<T> *x;
-    y = z;
-    int y_original_color = y->get_color();
+
+    y = (RedBlackNode<T> *)z;
+    NodeColor y_original_color = y->get_color();
+
     if (z->get_left() == this->nil)
     {
-        x = z->get_right();
-        this->transplant(z, z->get_right());
+        x = (RedBlackNode<T> *)z->get_right();
+        this->transplant((Node<T> *)z, (Node<T> *)z->get_right());
     }
     else if (z->get_right() == this->nil)
     {
-        x = z->get_left();
-        this->transplant(z, z->get_left());
+        x = (RedBlackNode<T> *)z->get_left();
+        this->transplant((Node<T> *)z, (Node<T> *)z->get_left());
     }
     else
     {
-        y = this->minimum(z->get_right()); // <- treb apelata functia din binary_tree
+        y = (RedBlackNode<T> *)this->minimum(z->get_right()); // <- treb apelata functia din binary_tree
         y_original_color = y->get_color();
-        x = y->get_right();
+        x = (RedBlackNode<T> *)y->get_right();
+
         if (y->get_parent() == z)
         {
             x->set_parent(y);
         }
         else
         {
-            this->transplant(y, y->get_right());
+            this->transplant(y, (Node<T> *)y->get_right());
             y->set_right(z->get_right());
-            y->get_right()->set_parent(y);
+            ((Node<T> *)y->get_right())->set_parent(y);
         }
 
-        this->transplant(z, y);
+        this->transplant((Node<T> *)z, y);
         y->set_left(z->get_left());
-        y->get_left()->set_parent(y);
-        y->set_color(z->get_color());
+        ((Node<T> *)y->get_left())->set_parent(y);
+        y->set_color(((RedBlackNode<T> *)z)->get_color());
     }
+
     delete z;
+
     if (y_original_color == BLACK)
     {
-        delete_fixup(x);
+        remove_fixup(x);
     }
 }
+
 template <class T>
-void RBBinarySearchTree<T>::delete_fixup(RedBlackNode<T> *x)
+void RBBinarySearchTree<T>::remove_fixup(RedBlackNode<T> *x)
 {
-    RedBlackNode<T> *s;
-    while (this->root != x && x->get_color() == BLACK)
+    RedBlackNode<T> *w;
+
+    while (x != this->root && x->get_color() == BLACK)
     {
         if (x == x->get_parent()->get_left())
         {
-            s = (RedBlackNode<T> *)x->get_parent()->get_right();
-            if (s->get_color() == RED)
+            w = (RedBlackNode<T> *)x->get_parent()->get_right();
+            if (w->get_color() == RED)
             {
-                s->set_color() = BLACK;
-                x->get_parent()->set_color() = RED;
-                this->left_rotate(x->get_parent()); // <------ aici
-                s = x->get_parent()->get_right();
+                w->set_color(BLACK);
+                RB_PARENT(x)->set_color(RED);
+                this->left_rotate(PARENT(x)); // <------ aici
+                w = (RedBlackNode<T> *)x->get_parent()->get_right();
             }
 
-            if (s->get_left()->get_color() == BLACK && s->get_right()->get_color() == BLACK)
+            if (w->get_left()->get_color() == BLACK && w->get_right()->get_color() == BLACK)
             {
-                s->set_color() = RED;
-                x = x->get_parent();
+                w->set_color(RED);
+                x = RB_PARENT(x);
             }
             else
             {
-                if (s->get_right()->get_color() == BLACK)
+                if (w->get_right()->get_color() == BLACK)
                 {
-                    s->get_left()->set_color() = BLACK;
-                    s->set_color() = RED;
-                    this->right_rotate(s); // <------- si aici
-                    s = x->get_parent()->get_right();
+                    ((RedBlackNode<T> *)w->get_left())->set_color(BLACK);
+                    w->set_color(RED);
+                    this->right_rotate(w); // <------- si aici
+                    w = (RedBlackNode<T> *)x->get_parent()->get_right();
                 }
 
-                s->set_color() = x->get_parent()->get_color();
-                x->get_parent()->set_color() = BLACK;
-                s->get_right()->set_color() = BLACK;
-                this->left_rotate(x->get_parent()); // <---------- si aici
-                this->root = x;
+                w->set_color(x->get_parent()->get_color());
+                RB_PARENT(x)->set_color(BLACK);
+                ((RedBlackNode<T> *)w->get_right())->set_color(BLACK);
+                this->left_rotate(RB_PARENT(x)); // <---------- si aici
+                x = (RedBlackNode<T> *)this->root;
             }
         }
         else
         {
-            s = x->get_parent()->get_left();
-            if (s->get_color() == RED)
+            w = (RedBlackNode<T> *)x->get_parent()->get_left();
+            if (w->get_color() == RED)
             {
-                s->set_color() = BLACK;
-                x->get_parent()->set_color() = RED;
-                this->right_rotate(x->get_parent());
-                s = x->get_parent()->get_left();
+                w->set_color(BLACK);
+                RB_PARENT(x)->set_color(RED);
+                this->right_rotate(PARENT(x));
+                w = (RedBlackNode<T> *)x->get_parent()->get_left();
             }
 
-            if (s->get_right()->get_color() == BLACK && s->get_right()->get_color() == BLACK)
+            if (w->get_right()->get_color() == BLACK && w->get_left()->get_color() == BLACK)
             {
-                s->set_color() = RED;
-                x = x->get_parent();
+                w->set_color(RED);
+                x = RB_PARENT(x);
             }
             else
             {
-                if (s->get_left()->get_color() == BLACK)
+                if (w->get_left()->get_color() == BLACK)
                 {
-                    s->get_right()->set_color() = BLACK;
-                    s->set_color() = RED;
-                    this->left_rotate(s); // aiici
-                    s = x->get_parent()->get_left();
+                    ((RedBlackNode<T> *)w->get_right())->set_color(BLACK);
+                    w->set_color(RED);
+                    this->left_rotate(w); // aiici
+                    w = (RedBlackNode<T> *)x->get_parent()->get_left();
                 }
 
-                s->set_color() = x->get_parent()->get_color();
-                x->get_parent()->set_color() = BLACK;
-                s->get_left()->set_color() = BLACK;
-                this->right_rotate(x->get_parent()); // aici
-                this->root = x;
+                w->set_color(x->get_parent()->get_color());
+                RB_PARENT(x)->set_color(BLACK);
+                ((RedBlackNode<T> *)w->get_left())->set_color(BLACK);
+                this->right_rotate(RB_PARENT(x)); // aici
+                x = (RedBlackNode<T> *)this->root;
             }
         }
     }
-    x->set_color() = BLACK;
+
+    x->set_color(BLACK);
 }
+
 
 #endif

@@ -15,6 +15,9 @@
 #include <ostream>
 #include <iostream>
 
+#define PARENT(z) ((Node<T> *)z->get_parent())
+#define GRANDPARENT(z) ((Node<T> *)(z->get_parent()->get_parent()))
+
 template <class T>
 class BinarySearchTree
 {
@@ -35,9 +38,11 @@ protected:
     // numarul de elemente;
     size_t count;
 
+    void tree_transplant(Node<T> *u, Node<T> *v);
+
     // muta nodul v in locul nodului u
     // (deci tot subarborele cu radacina in v este "transportat" in locul nodului u)
-    void transplant(Node<T> *u, Node<T> *v);
+    virtual void transplant(Node<T> *u, Node<T> *v);
 
     // returneaza radacina arborelui;
     const Node<T> *get_root() const;
@@ -47,6 +52,8 @@ protected:
 
     // insereaza nodul x in arbore;
     const Node<T> *insert(Node<T> *x);
+
+    virtual void remove_node(const Node<T> *z);
 
     // returneaza nodul cu cheia minima din subarborele cu radacina in nodul x;
     const Node<T> *minimum(const Node<T> *x) const;
@@ -74,7 +81,7 @@ public:
     virtual void insert(T x);
 
     // sterge o cheie din arbore;
-    virtual void remove(T x);
+    void remove(T x);
 
     // returneaza minimul din intregul arbore;
     T minimum() const;
@@ -125,28 +132,26 @@ const Node<T> *BinarySearchTree<T>::get_root() const
 }
 
 template <class T>
-void BinarySearchTree<T>::transplant(Node<T> *u, Node<T> *v)
+void BinarySearchTree<T>::tree_transplant(Node<T> *u, Node<T> *v)
 {
-    // parintele nodului u
-    Node<T> *u_parent = (Node<T> *)u->get_parent();
-
-    // daca u nu are parinte inseamna ca e radacina
-    // deci v devine noua radacina
-    if (u->get_parent() == this->nil)
+    if (PARENT(u) == this->nil)
     {
         this->root = v;
     }
-    // daca u este copil stang
-    // atunci v devine copil stang pentru parintele lui u;
-    else if (u == u_parent->get_left())
+    else if (u == PARENT(u)->get_left())
     {
-        u_parent->set_left(v);
+        PARENT(u)->set_left(v);
     }
-    // altfel, v devine copil drept pentru parintele lui u;
     else
     {
-        u_parent->set_right(v);
+        PARENT(u)->set_right(v);
     }
+}
+
+template <class T>
+void BinarySearchTree<T>::transplant(Node<T> *u, Node<T> *v)
+{
+    this->tree_transplant(u, v);
 
     // daca v e nenul, atunci parintele lui u devine parintele lui v;
     if (v != this->nil)
@@ -268,6 +273,34 @@ const Node<T> *BinarySearchTree<T>::insert(Node<T> *z)
 }
 
 template <class T>
+void BinarySearchTree<T>::remove_node(const Node<T> *z)
+{
+    if (z->get_left() == this->nil)
+    {
+        this->transplant((Node<T> *)z, (Node<T> *)z->get_right());
+    }
+    else if (z->get_right() == this->nil)
+    {
+        this->transplant((Node<T> *)z, (Node<T> *)z->get_left());
+    }
+    else
+    {
+        Node<T> *y = (Node<T> *)this->minimum(z->get_right());
+
+        if(y->get_parent() != z)
+        {
+            this->transplant(y, (Node<T> *)y->get_right());
+            y->set_right(z->get_right());
+            ((Node<T> *)y->get_right())->set_parent(y);
+        }
+
+        this->transplant((Node<T> *)z, y);
+        y->set_left(z->get_left());
+        ((Node<T> *)y->get_left())->set_parent(y);
+    }
+}
+
+template <class T>
 const Node<T> *BinarySearchTree<T>::minimum(const Node<T> *x) const
 {
     if (x == this->nil)
@@ -375,8 +408,22 @@ void BinarySearchTree<T>::insert(T n)
 }
 
 template <class T>
-void BinarySearchTree<T>::remove(T n)
+void BinarySearchTree<T>::remove(T x)
 {
+    Node<T> *z = (Node<T> *)this->search(this->root, x);
+
+    if (z == this->nil)
+    {
+        throw "Key not found";
+    }
+
+    z->dec_count();
+    this->count--;
+
+    if (not z->get_count())
+    {
+        this->remove_node(z);
+    }
 }
 
 template <class T>

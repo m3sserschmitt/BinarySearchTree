@@ -27,6 +27,10 @@ time.h
 -
 fstream
 -
+list
+-
+chrono
+-
 s.hh
 /home/rujas/code_workspace/proiect_SD/s.hh
 
