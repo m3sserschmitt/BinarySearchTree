@@ -1,1 +1,1 @@
-/usr/bin/x86_64-linux-gnu-g++-9 -g -rdynamic CMakeFiles/Proiect_SD.dir/main.cc.o -o Proiect_SD 
+/usr/bin/x86_64-linux-gnu-g++-9 -O3 -DNDEBUG -rdynamic CMakeFiles/Proiect_SD.dir/main.cc.o -o Proiect_SD 

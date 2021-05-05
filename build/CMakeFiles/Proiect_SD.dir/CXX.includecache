@@ -17,9 +17,15 @@ iostream
 /home/rujas/code_workspace/proiect_SD/main.cc
 iostream
 -
-list
+chrono
 -
-set
+string.h
+-
+string
+-
+time.h
+-
+fstream
 -
 s.hh
 /home/rujas/code_workspace/proiect_SD/s.hh
