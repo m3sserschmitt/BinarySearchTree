@@ -11,63 +11,63 @@
 #ifndef BINARY_TREE_HH
 #define BINARY_TREE_HH
 
-#include "node.hh"
+#include "tree_node.hh"
 #include <ostream>
 #include <iostream>
 
-#define PARENT(z) ((Node<T> *)z->get_parent())
-#define GRANDPARENT(z) ((Node<T> *)(z->get_parent()->get_parent()))
+#define PARENT(z) ((TreeNode<T> *)z->get_parent())
+#define GRANDPARENT(z) ((TreeNode<T> *)(z->get_parent()->get_parent()))
 
 template <class T>
 class BinarySearchTree
 {
     // printeaza nodurile arborelui in ordine crescatoare
     // pornind de la un anumit nod;
-    std::ostream &in_order_tree_print(std::ostream &out, const Node<T> *x, bool &c) const;
+    std::ostream &in_order_tree_print(std::ostream &out, const TreeNode<T> *x, bool &c) const;
 
-    void clear(const Node<T> *x);
+    void clear(const TreeNode<T> *x);
 
 protected:
     // radacina arborelui;
-    Node<T> *root;
+    TreeNode<T> *root;
 
     // pentru compatibilitate, in cazul unui arbore simplu va fi nullptr,
     // iar pt rb-tree, pointeaza catre un tip special de nod, de culoare BLACK;
-    Node<T> *nil;
+    TreeNode<T> *nil;
 
     // numarul de elemente;
     size_t count;
 
-    void tree_transplant(Node<T> *u, Node<T> *v);
+    void tree_transplant(TreeNode<T> *u, TreeNode<T> *v);
 
     // muta nodul v in locul nodului u
     // (deci tot subarborele cu radacina in v este "transportat" in locul nodului u)
-    virtual void transplant(Node<T> *u, Node<T> *v);
+    virtual void transplant(TreeNode<T> *u, TreeNode<T> *v);
 
     // returneaza radacina arborelui;
-    const Node<T> *get_root() const;
+    const TreeNode<T> *get_root() const;
 
     // cauta nodul cu cheia k din subarborele cu radacina x;
-    const Node<T> *search(const Node<T> *x, Node<T> k) const;
+    const TreeNode<T> *search(const TreeNode<T> *x, TreeNode<T> k) const;
 
     // insereaza nodul x in arbore;
-    const Node<T> *insert(Node<T> *x);
+    const TreeNode<T> *insert(TreeNode<T> *x);
 
-    virtual void remove_node(const Node<T> *z);
+    virtual void remove_node(const TreeNode<T> *z);
 
     // returneaza nodul cu cheia minima din subarborele cu radacina in nodul x;
-    const Node<T> *minimum(const Node<T> *x) const;
+    const TreeNode<T> *minimum(const TreeNode<T> *x) const;
 
     // returneaza nodul cu cheia maxima din subarborele cu radacina in nodul x;
-    const Node<T> *maximum(const Node<T> *x) const;
+    const TreeNode<T> *maximum(const TreeNode<T> *x) const;
 
     // returneaza nodul succesor al nodului x;
-    const Node<T> *successor(const Node<T> *x) const;
+    const TreeNode<T> *successor(const TreeNode<T> *x) const;
 
     // returneaza nodul predecesor nodului x;
-    const Node<T> *predecessor(const Node<T> *x) const;
+    const TreeNode<T> *predecessor(const TreeNode<T> *x) const;
 
-    void kth_element(const Node<T> *x, Node<T> **target, size_t k, size_t &c) const;
+    void kth_element(const TreeNode<T> *x, TreeNode<T> **target, size_t k, size_t &c) const;
 
 public:
     BinarySearchTree();
@@ -126,13 +126,13 @@ BinarySearchTree<T>::~BinarySearchTree()
 }
 
 template <class T>
-const Node<T> *BinarySearchTree<T>::get_root() const
+const TreeNode<T> *BinarySearchTree<T>::get_root() const
 {
     return this->root;
 }
 
 template <class T>
-void BinarySearchTree<T>::tree_transplant(Node<T> *u, Node<T> *v)
+void BinarySearchTree<T>::tree_transplant(TreeNode<T> *u, TreeNode<T> *v)
 {
     if (PARENT(u) == this->nil)
     {
@@ -149,7 +149,7 @@ void BinarySearchTree<T>::tree_transplant(Node<T> *u, Node<T> *v)
 }
 
 template <class T>
-void BinarySearchTree<T>::transplant(Node<T> *u, Node<T> *v)
+void BinarySearchTree<T>::transplant(TreeNode<T> *u, TreeNode<T> *v)
 {
     this->tree_transplant(u, v);
 
@@ -161,7 +161,7 @@ void BinarySearchTree<T>::transplant(Node<T> *u, Node<T> *v)
 }
 
 template <class T>
-std::ostream &BinarySearchTree<T>::in_order_tree_print(std::ostream &out, const Node<T> *x, bool &c) const
+std::ostream &BinarySearchTree<T>::in_order_tree_print(std::ostream &out, const TreeNode<T> *x, bool &c) const
 {
     if (x != this->nil)
     {
@@ -198,7 +198,7 @@ std::ostream &BinarySearchTree<T>::in_order_tree_print(std::ostream &out, const 
 }
 
 template <class T>
-const Node<T> *BinarySearchTree<T>::search(const Node<T> *x, Node<T> k) const
+const TreeNode<T> *BinarySearchTree<T>::search(const TreeNode<T> *x, TreeNode<T> k) const
 {
     while (x != this->nil and k != x->get_key())
     {
@@ -216,13 +216,13 @@ const Node<T> *BinarySearchTree<T>::search(const Node<T> *x, Node<T> k) const
 }
 
 template <class T>
-const Node<T> *BinarySearchTree<T>::insert(Node<T> *z)
+const TreeNode<T> *BinarySearchTree<T>::insert(TreeNode<T> *z)
 {
     // pointer la radacina arborelui;
-    Node<T> *x = this->root;
+    TreeNode<T> *x = this->root;
 
     // auxiliar;
-    Node<T> *y = this->nil;
+    TreeNode<T> *y = this->nil;
 
     // traverseaza arborele:
     // la fiecare pas se decide daca merge la stanga sau dreapata
@@ -232,11 +232,11 @@ const Node<T> *BinarySearchTree<T>::insert(Node<T> *z)
         y = x;
         if (z->get_key() < x->get_key())
         {
-            x = (Node<T> *)x->get_left();
+            x = (TreeNode<T> *)x->get_left();
         }
         else if (z->get_key() > x->get_key())
         {
-            x = (Node<T> *)x->get_right();
+            x = (TreeNode<T> *)x->get_right();
         }
         else
         {
@@ -273,35 +273,35 @@ const Node<T> *BinarySearchTree<T>::insert(Node<T> *z)
 }
 
 template <class T>
-void BinarySearchTree<T>::remove_node(const Node<T> *z)
+void BinarySearchTree<T>::remove_node(const TreeNode<T> *z)
 {
     if (z->get_left() == this->nil)
     {
-        this->transplant((Node<T> *)z, (Node<T> *)z->get_right());
+        this->transplant((TreeNode<T> *)z, (TreeNode<T> *)z->get_right());
     }
     else if (z->get_right() == this->nil)
     {
-        this->transplant((Node<T> *)z, (Node<T> *)z->get_left());
+        this->transplant((TreeNode<T> *)z, (TreeNode<T> *)z->get_left());
     }
     else
     {
-        Node<T> *y = (Node<T> *)this->minimum(z->get_right());
+        TreeNode<T> *y = (TreeNode<T> *)this->minimum(z->get_right());
 
-        if(y->get_parent() != z)
+        if (y->get_parent() != z)
         {
-            this->transplant(y, (Node<T> *)y->get_right());
+            this->transplant(y, (TreeNode<T> *)y->get_right());
             y->set_right(z->get_right());
-            ((Node<T> *)y->get_right())->set_parent(y);
+            ((TreeNode<T> *)y->get_right())->set_parent(y);
         }
 
-        this->transplant((Node<T> *)z, y);
+        this->transplant((TreeNode<T> *)z, y);
         y->set_left(z->get_left());
-        ((Node<T> *)y->get_left())->set_parent(y);
+        ((TreeNode<T> *)y->get_left())->set_parent(y);
     }
 }
 
 template <class T>
-const Node<T> *BinarySearchTree<T>::minimum(const Node<T> *x) const
+const TreeNode<T> *BinarySearchTree<T>::minimum(const TreeNode<T> *x) const
 {
     if (x == this->nil)
     {
@@ -315,7 +315,7 @@ const Node<T> *BinarySearchTree<T>::minimum(const Node<T> *x) const
 }
 
 template <class T>
-const Node<T> *BinarySearchTree<T>::maximum(const Node<T> *x) const
+const TreeNode<T> *BinarySearchTree<T>::maximum(const TreeNode<T> *x) const
 {
     if (x == this->nil)
     {
@@ -329,7 +329,7 @@ const Node<T> *BinarySearchTree<T>::maximum(const Node<T> *x) const
 }
 
 template <class T>
-const Node<T> *BinarySearchTree<T>::successor(const Node<T> *x) const
+const TreeNode<T> *BinarySearchTree<T>::successor(const TreeNode<T> *x) const
 {
     // daca copilul drept este nenul
     if (x->get_right() != this->nil)
@@ -337,7 +337,7 @@ const Node<T> *BinarySearchTree<T>::successor(const Node<T> *x) const
         return this->minimum(x->get_right());
     }
 
-    const Node<T> *y = x->get_parent();
+    const TreeNode<T> *y = x->get_parent();
 
     // cat timp x e copil drept se parcurge arborele spre radacina
     while (y != this->nil and x == y->get_right())
@@ -350,14 +350,14 @@ const Node<T> *BinarySearchTree<T>::successor(const Node<T> *x) const
 }
 
 template <class T>
-const Node<T> *BinarySearchTree<T>::predecessor(const Node<T> *x) const
+const TreeNode<T> *BinarySearchTree<T>::predecessor(const TreeNode<T> *x) const
 {
     if (x->get_left() != this->nil)
     {
         return this->maximum(x->get_left());
     }
 
-    const Node<T> *y = x->get_parent();
+    const TreeNode<T> *y = x->get_parent();
 
     while (y != this->nil and x == y->get_left())
     {
@@ -369,7 +369,7 @@ const Node<T> *BinarySearchTree<T>::predecessor(const Node<T> *x) const
 }
 
 template <class T>
-void BinarySearchTree<T>::kth_element(const Node<T> *x, Node<T> **target, size_t k, size_t &c) const
+void BinarySearchTree<T>::kth_element(const TreeNode<T> *x, TreeNode<T> **target, size_t k, size_t &c) const
 {
     if (x != this->nil and c < k)
     {
@@ -377,7 +377,7 @@ void BinarySearchTree<T>::kth_element(const Node<T> *x, Node<T> **target, size_t
 
         if (c < k)
         {
-            *target = (Node<T> *)x;
+            *target = (TreeNode<T> *)x;
         }
 
         c += x->get_count();
@@ -386,7 +386,7 @@ void BinarySearchTree<T>::kth_element(const Node<T> *x, Node<T> **target, size_t
 }
 
 template <class T>
-void BinarySearchTree<T>::clear(const Node<T> *x)
+void BinarySearchTree<T>::clear(const TreeNode<T> *x)
 {
     // elibereaza recursiv memoria alocata pe fiecare nod;
     if (x != this->nil)
@@ -402,7 +402,7 @@ template <class T>
 void BinarySearchTree<T>::insert(T n)
 {
     // noul nod care va fi inserat;
-    Node<T> *z = new Node<T>(n);
+    TreeNode<T> *z = new TreeNode<T>(n);
 
     this->insert(z);
 }
@@ -410,7 +410,7 @@ void BinarySearchTree<T>::insert(T n)
 template <class T>
 void BinarySearchTree<T>::remove(T x)
 {
-    Node<T> *z = (Node<T> *)this->search(this->root, x);
+    TreeNode<T> *z = (TreeNode<T> *)this->search(this->root, x);
 
     if (z == this->nil)
     {
@@ -455,7 +455,7 @@ T BinarySearchTree<T>::successor(T x) const
         throw "Tree is empty";
 
     // cauta nodul cu cheia lui x;
-    const Node<T> *z = this->search(this->root, x);
+    const TreeNode<T> *z = this->search(this->root, x);
 
     // std::cout << "\nleft of " << x << " is " << *z->get_left() << "\n";
     // std::cout << "\nright of " << x << " is " << *z->get_right() << "\n";
@@ -464,7 +464,7 @@ T BinarySearchTree<T>::successor(T x) const
     if (z == this->nil)
         throw "Key does not exist";
 
-    const Node<T> *x_successor = this->successor(z);
+    const TreeNode<T> *x_successor = this->successor(z);
 
     if (x_successor == this->nil)
     {
@@ -481,7 +481,7 @@ T BinarySearchTree<T>::predecessor(T x) const
         throw "Tree is empty";
 
     // cauta nodul cu cheia lui x;
-    const Node<T> *z = this->search(this->root, x);
+    const TreeNode<T> *z = this->search(this->root, x);
 
     if (z == this->nil)
         throw "Key does not exist";
@@ -491,7 +491,7 @@ T BinarySearchTree<T>::predecessor(T x) const
         return *this->maximum(z->get_left());
     }
 
-    const Node<T> *x_predecessor = this->predecessor(z);
+    const TreeNode<T> *x_predecessor = this->predecessor(z);
 
     if (x_predecessor == this->nil)
     {
@@ -522,7 +522,7 @@ T BinarySearchTree<T>::kth_element(size_t k) const
     }
 
     size_t c = 0;
-    Node<T> *target = this->nil;
+    TreeNode<T> *target = this->nil;
     this->kth_element(this->root, &target, k, c);
 
     return *target;
@@ -538,7 +538,7 @@ void BinarySearchTree<T>::clear()
 template <class t>
 std::ostream &operator<<(std::ostream &out, const BinarySearchTree<t> &tree)
 {
-    const Node<t> *root = tree.root;
+    const TreeNode<t> *root = tree.root;
 
     // la primul apel nu se printeaza virgula
     bool c = 0;

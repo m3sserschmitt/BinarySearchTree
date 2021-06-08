@@ -7,8 +7,8 @@
 #IncludeRegexTransform: 
 
 /home/rujas/code_workspace/proiect_SD/binary_tree.hh
-node.hh
-/home/rujas/code_workspace/proiect_SD/node.hh
+tree_node.hh
+/home/rujas/code_workspace/proiect_SD/tree_node.hh
 ostream
 -
 iostream
@@ -34,23 +34,23 @@ chrono
 s.hh
 /home/rujas/code_workspace/proiect_SD/s.hh
 
-/home/rujas/code_workspace/proiect_SD/node.hh
-ostream
--
-istream
--
-
 /home/rujas/code_workspace/proiect_SD/rb_binary_tree.hh
 binary_tree.hh
 /home/rujas/code_workspace/proiect_SD/binary_tree.hh
-rb_node.hh
-/home/rujas/code_workspace/proiect_SD/rb_node.hh
+rb_tree_node.hh
+/home/rujas/code_workspace/proiect_SD/rb_tree_node.hh
 
-/home/rujas/code_workspace/proiect_SD/rb_node.hh
-node.hh
-/home/rujas/code_workspace/proiect_SD/node.hh
+/home/rujas/code_workspace/proiect_SD/rb_tree_node.hh
+tree_node.hh
+/home/rujas/code_workspace/proiect_SD/tree_node.hh
 
 /home/rujas/code_workspace/proiect_SD/s.hh
 rb_binary_tree.hh
 /home/rujas/code_workspace/proiect_SD/rb_binary_tree.hh
+
+/home/rujas/code_workspace/proiect_SD/tree_node.hh
+ostream
+-
+istream
+-
 

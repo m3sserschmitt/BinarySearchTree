@@ -3,8 +3,8 @@
 
 CMakeFiles/Proiect_SD.dir/main.cc.o: ../binary_tree.hh
 CMakeFiles/Proiect_SD.dir/main.cc.o: ../main.cc
-CMakeFiles/Proiect_SD.dir/main.cc.o: ../node.hh
 CMakeFiles/Proiect_SD.dir/main.cc.o: ../rb_binary_tree.hh
-CMakeFiles/Proiect_SD.dir/main.cc.o: ../rb_node.hh
+CMakeFiles/Proiect_SD.dir/main.cc.o: ../rb_tree_node.hh
 CMakeFiles/Proiect_SD.dir/main.cc.o: ../s.hh
+CMakeFiles/Proiect_SD.dir/main.cc.o: ../tree_node.hh
 

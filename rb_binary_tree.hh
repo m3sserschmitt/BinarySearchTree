@@ -2,30 +2,30 @@
 #define RB_BINARY_TREE_HH
 
 #include "binary_tree.hh"
-#include "rb_node.hh"
+#include "rb_tree_node.hh"
 
-#define RB_PARENT(z) ((RedBlackNode<T> *)z->get_parent())
-#define RB_GRANDPARENT(z) ((RedBlackNode<T> *)(z->get_parent()->get_parent()))
+#define RB_PARENT(z) ((RedBlackTreeNode<T> *)z->get_parent())
+#define RB_GRANDPARENT(z) ((RedBlackTreeNode<T> *)(z->get_parent()->get_parent()))
 
 template <class T>
 class RBBinarySearchTree : public BinarySearchTree<T>
 {
     // rotatie spre stanga in jurul nodului x;
-    void left_rotate(Node<T> *x);
+    void left_rotate(TreeNode<T> *x);
 
     // rotatie la dreapta in jurul nodului x;
-    void right_rotate(Node<T> *x);
+    void right_rotate(TreeNode<T> *x);
 
     // restabileste culorile in arbore dupa inserarea unui nou nod;
-    void insert_fixup(RedBlackNode<T> *z);
+    void insert_fixup(RedBlackTreeNode<T> *z);
 
     //restabileste culorile in arbore dupa stergerea unui nod
-    void remove_fixup(RedBlackNode<T> *z);
+    void remove_fixup(RedBlackTreeNode<T> *z);
 
 protected:
-    void remove_node(const Node<T> *z);
+    void remove_node(const TreeNode<T> *z);
 
-    void transplant(Node<T> *u, Node<T> *v);
+    void transplant(TreeNode<T> *u, TreeNode<T> *v);
 
 public:
     RBBinarySearchTree();
@@ -38,7 +38,7 @@ public:
 template <class T>
 RBBinarySearchTree<T>::RBBinarySearchTree() : BinarySearchTree<T>()
 {
-    this->nil = new RedBlackNode<T>(0, BLACK);
+    this->nil = new RedBlackTreeNode<T>(0, BLACK);
     this->root = this->nil;
 }
 
@@ -49,10 +49,10 @@ RBBinarySearchTree<T>::~RBBinarySearchTree()
 }
 
 template <class T>
-void RBBinarySearchTree<T>::left_rotate(Node<T> *x)
+void RBBinarySearchTree<T>::left_rotate(TreeNode<T> *x)
 {
     // se presupune ca dreapta lui x este nenula;
-    Node<T> *y = (Node<T> *)x->get_right();
+    TreeNode<T> *y = (TreeNode<T> *)x->get_right();
 
     // dreapta lui x devine stanga lui y;
     x->set_right(y->get_left());
@@ -61,14 +61,14 @@ void RBBinarySearchTree<T>::left_rotate(Node<T> *x)
     if (y->get_left() != this->nil)
     {
         // atunci stanga lui y primeste ca parinte pe x;
-        Node<T> *y_left = (Node<T> *)y->get_left();
+        TreeNode<T> *y_left = (TreeNode<T> *)y->get_left();
         y_left->set_parent(x);
     }
 
     // parintele lui x devine acum parintele lui y;
     y->set_parent(x->get_parent());
 
-    Node<T> *x_parent = (Node<T> *)x->get_parent();
+    TreeNode<T> *x_parent = (TreeNode<T> *)x->get_parent();
 
     // daca parintele lui x este nul (i.e. x este radacina)
     if (x_parent == this->nil)
@@ -95,23 +95,23 @@ void RBBinarySearchTree<T>::left_rotate(Node<T> *x)
 }
 
 template <class T>
-void RBBinarySearchTree<T>::right_rotate(Node<T> *x)
+void RBBinarySearchTree<T>::right_rotate(TreeNode<T> *x)
 {
     // codul este perfect simetric cu cazul "left_rotate"
     // doar se interschimba "left" cu "right";
 
-    Node<T> *y = (Node<T> *)x->get_left();
+    TreeNode<T> *y = (TreeNode<T> *)x->get_left();
     x->set_left(y->get_right());
 
     if (y->get_right() != this->nil)
     {
-        Node<T> *y_right = (Node<T> *)y->get_right();
+        TreeNode<T> *y_right = (TreeNode<T> *)y->get_right();
         y_right->set_parent(x);
     }
 
     y->set_parent(x->get_parent());
 
-    Node<T> *x_parent = (Node<T> *)x->get_parent();
+    TreeNode<T> *x_parent = (TreeNode<T> *)x->get_parent();
 
     if (x_parent == this->nil)
     {
@@ -131,15 +131,15 @@ void RBBinarySearchTree<T>::right_rotate(Node<T> *x)
 }
 
 template <class T>
-void RBBinarySearchTree<T>::insert_fixup(RedBlackNode<T> *z)
+void RBBinarySearchTree<T>::insert_fixup(RedBlackTreeNode<T> *z)
 {
-    RedBlackNode<T> *y;
+    RedBlackTreeNode<T> *y;
 
     while (RB_PARENT(z)->get_color() == RED)
     {
         if (z->get_parent() == RB_GRANDPARENT(z)->get_left())
         {
-            y = (RedBlackNode<T> *)z->get_parent()->get_parent()->get_right();
+            y = (RedBlackTreeNode<T> *)z->get_parent()->get_parent()->get_right();
 
             if (y->get_color() == RED)
             {
@@ -163,7 +163,7 @@ void RBBinarySearchTree<T>::insert_fixup(RedBlackNode<T> *z)
         }
         else
         {
-            y = (RedBlackNode<T> *)z->get_parent()->get_parent()->get_left();
+            y = (RedBlackTreeNode<T> *)z->get_parent()->get_parent()->get_left();
 
             if (y->get_color() == RED)
             {
@@ -187,11 +187,11 @@ void RBBinarySearchTree<T>::insert_fixup(RedBlackNode<T> *z)
         }
     }
 
-    ((RedBlackNode<T> *)this->root)->set_color(BLACK);
+    ((RedBlackTreeNode<T> *)this->root)->set_color(BLACK);
 }
 
 template <class T>
-void RBBinarySearchTree<T>::transplant(Node<T> *u, Node<T> *v)
+void RBBinarySearchTree<T>::transplant(TreeNode<T> *u, TreeNode<T> *v)
 {
     this->tree_transplant(u, v);
 
@@ -201,8 +201,8 @@ void RBBinarySearchTree<T>::transplant(Node<T> *u, Node<T> *v)
 template <class T>
 void RBBinarySearchTree<T>::insert(T x)
 {
-    // copiaza cheia lui n intr-un RedBlackNode;
-    RedBlackNode<T> *z = new RedBlackNode<T>(x);
+    // copiaza cheia lui n intr-un RedBlackTreeNode;
+    RedBlackTreeNode<T> *z = new RedBlackTreeNode<T>(x);
 
     // inserarea propriu-zisa nu tine cont de culoare
     // deci se poate apela metoda insert ca intr-un arbore simplu;
@@ -219,30 +219,30 @@ void RBBinarySearchTree<T>::insert(T x)
 }
 
 template <class T>
-void RBBinarySearchTree<T>::remove_node(const Node<T> *z)
+void RBBinarySearchTree<T>::remove_node(const TreeNode<T> *z)
 {
-    // copiaza cheia lui n intr-un RedBlackNode;
-    RedBlackNode<T> *y;
-    RedBlackNode<T> *x;
+    // copiaza cheia lui n intr-un RedBlackTreeNode;
+    RedBlackTreeNode<T> *y;
+    RedBlackTreeNode<T> *x;
 
-    y = (RedBlackNode<T> *)z;
+    y = (RedBlackTreeNode<T> *)z;
     NodeColor y_original_color = y->get_color();
 
     if (z->get_left() == this->nil)
     {
-        x = (RedBlackNode<T> *)z->get_right();
-        this->transplant((Node<T> *)z, (Node<T> *)z->get_right());
+        x = (RedBlackTreeNode<T> *)z->get_right();
+        this->transplant((TreeNode<T> *)z, (TreeNode<T> *)z->get_right());
     }
     else if (z->get_right() == this->nil)
     {
-        x = (RedBlackNode<T> *)z->get_left();
-        this->transplant((Node<T> *)z, (Node<T> *)z->get_left());
+        x = (RedBlackTreeNode<T> *)z->get_left();
+        this->transplant((TreeNode<T> *)z, (TreeNode<T> *)z->get_left());
     }
     else
     {
-        y = (RedBlackNode<T> *)this->minimum(z->get_right()); // <- treb apelata functia din binary_tree
+        y = (RedBlackTreeNode<T> *)this->minimum(z->get_right()); // <- treb apelata functia din binary_tree
         y_original_color = y->get_color();
-        x = (RedBlackNode<T> *)y->get_right();
+        x = (RedBlackTreeNode<T> *)y->get_right();
 
         if (y->get_parent() == z)
         {
@@ -250,15 +250,15 @@ void RBBinarySearchTree<T>::remove_node(const Node<T> *z)
         }
         else
         {
-            this->transplant(y, (Node<T> *)y->get_right());
+            this->transplant(y, (TreeNode<T> *)y->get_right());
             y->set_right(z->get_right());
-            ((Node<T> *)y->get_right())->set_parent(y);
+            ((TreeNode<T> *)y->get_right())->set_parent(y);
         }
 
-        this->transplant((Node<T> *)z, y);
+        this->transplant((TreeNode<T> *)z, y);
         y->set_left(z->get_left());
-        ((Node<T> *)y->get_left())->set_parent(y);
-        y->set_color(((RedBlackNode<T> *)z)->get_color());
+        ((TreeNode<T> *)y->get_left())->set_parent(y);
+        y->set_color(((RedBlackTreeNode<T> *)z)->get_color());
     }
 
     delete z;
@@ -270,21 +270,21 @@ void RBBinarySearchTree<T>::remove_node(const Node<T> *z)
 }
 
 template <class T>
-void RBBinarySearchTree<T>::remove_fixup(RedBlackNode<T> *x)
+void RBBinarySearchTree<T>::remove_fixup(RedBlackTreeNode<T> *x)
 {
-    RedBlackNode<T> *w;
+    RedBlackTreeNode<T> *w;
 
     while (x != this->root && x->get_color() == BLACK)
     {
         if (x == x->get_parent()->get_left())
         {
-            w = (RedBlackNode<T> *)x->get_parent()->get_right();
+            w = (RedBlackTreeNode<T> *)x->get_parent()->get_right();
             if (w->get_color() == RED)
             {
                 w->set_color(BLACK);
                 RB_PARENT(x)->set_color(RED);
                 this->left_rotate(PARENT(x)); // <------ aici
-                w = (RedBlackNode<T> *)x->get_parent()->get_right();
+                w = (RedBlackTreeNode<T> *)x->get_parent()->get_right();
             }
 
             if (w->get_left()->get_color() == BLACK && w->get_right()->get_color() == BLACK)
@@ -296,28 +296,28 @@ void RBBinarySearchTree<T>::remove_fixup(RedBlackNode<T> *x)
             {
                 if (w->get_right()->get_color() == BLACK)
                 {
-                    ((RedBlackNode<T> *)w->get_left())->set_color(BLACK);
+                    ((RedBlackTreeNode<T> *)w->get_left())->set_color(BLACK);
                     w->set_color(RED);
                     this->right_rotate(w); // <------- si aici
-                    w = (RedBlackNode<T> *)x->get_parent()->get_right();
+                    w = (RedBlackTreeNode<T> *)x->get_parent()->get_right();
                 }
 
                 w->set_color(x->get_parent()->get_color());
                 RB_PARENT(x)->set_color(BLACK);
-                ((RedBlackNode<T> *)w->get_right())->set_color(BLACK);
+                ((RedBlackTreeNode<T> *)w->get_right())->set_color(BLACK);
                 this->left_rotate(RB_PARENT(x)); // <---------- si aici
-                x = (RedBlackNode<T> *)this->root;
+                x = (RedBlackTreeNode<T> *)this->root;
             }
         }
         else
         {
-            w = (RedBlackNode<T> *)x->get_parent()->get_left();
+            w = (RedBlackTreeNode<T> *)x->get_parent()->get_left();
             if (w->get_color() == RED)
             {
                 w->set_color(BLACK);
                 RB_PARENT(x)->set_color(RED);
                 this->right_rotate(PARENT(x));
-                w = (RedBlackNode<T> *)x->get_parent()->get_left();
+                w = (RedBlackTreeNode<T> *)x->get_parent()->get_left();
             }
 
             if (w->get_right()->get_color() == BLACK && w->get_left()->get_color() == BLACK)
@@ -329,23 +329,22 @@ void RBBinarySearchTree<T>::remove_fixup(RedBlackNode<T> *x)
             {
                 if (w->get_left()->get_color() == BLACK)
                 {
-                    ((RedBlackNode<T> *)w->get_right())->set_color(BLACK);
+                    ((RedBlackTreeNode<T> *)w->get_right())->set_color(BLACK);
                     w->set_color(RED);
                     this->left_rotate(w); // aiici
-                    w = (RedBlackNode<T> *)x->get_parent()->get_left();
+                    w = (RedBlackTreeNode<T> *)x->get_parent()->get_left();
                 }
 
                 w->set_color(x->get_parent()->get_color());
                 RB_PARENT(x)->set_color(BLACK);
-                ((RedBlackNode<T> *)w->get_left())->set_color(BLACK);
+                ((RedBlackTreeNode<T> *)w->get_left())->set_color(BLACK);
                 this->right_rotate(RB_PARENT(x)); // aici
-                x = (RedBlackNode<T> *)this->root;
+                x = (RedBlackTreeNode<T> *)this->root;
             }
         }
     }
 
     x->set_color(BLACK);
 }
-
 
 #endif
