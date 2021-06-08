@@ -1,1 +1,1 @@
-Proiect SD
+C++ implementation of Binary Search Tree and Red-Black Binary Search Tree data structures. This structures support operations like insert, search, remove, minimum, maximum successor and predecessor. You can run the tests using python3: `python3 test.py test_type` where *test_type* has one of the following values: `insert_random`, `insert_range`, `search_random_kth`, `search_random_successor`, `search_random_tree`. This script will measure the performance of implemented operations and plot the results
